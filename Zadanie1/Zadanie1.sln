@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie1", "Zadanie1\Zadanie1.csproj", "{93B7E903-6D34-47C1-8C0C-74E01A0DBBDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie1Azure", "Zadanie1\Zadanie1Azure.csproj", "{93B7E903-6D34-47C1-8C0C-74E01A0DBBDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie1Algorytm", "Zadanie1Algorytm\Zadanie1Algorytm.csproj", "{08E3A0E2-5B48-43EC-9445-3758D2E4B221}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{93B7E903-6D34-47C1-8C0C-74E01A0DBBDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93B7E903-6D34-47C1-8C0C-74E01A0DBBDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93B7E903-6D34-47C1-8C0C-74E01A0DBBDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08E3A0E2-5B48-43EC-9445-3758D2E4B221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08E3A0E2-5B48-43EC-9445-3758D2E4B221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08E3A0E2-5B48-43EC-9445-3758D2E4B221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08E3A0E2-5B48-43EC-9445-3758D2E4B221}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
