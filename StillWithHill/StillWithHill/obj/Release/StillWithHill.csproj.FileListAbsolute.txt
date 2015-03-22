@@ -1,0 +1,6 @@
+C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\bin\Release\StillWithHill.exe.config
+C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\bin\Release\StillWithHill.exe
+C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\bin\Release\StillWithHill.pdb
+C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\obj\Release\StillWithHill.exe
+C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\obj\Release\StillWithHill.pdb
+C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\obj\Release\StillWithHill.csprojResolveAssemblyReference.cache
