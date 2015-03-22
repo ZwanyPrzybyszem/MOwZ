@@ -101,10 +101,13 @@ namespace StillWithHill
 
         static void Main(string[] args)
         {
+            System.Console.WriteLine("Podaj nazwę pliku (z rozszerzeniem): ");
+            string file = System.Console.ReadLine();
+
             string[] text;
             try 
             {
-                text = System.IO.File.ReadAllLines(@"..\..\..\tests\test001.txt");//Łap wyjątek!
+                text = System.IO.File.ReadAllLines(@"..\..\..\tests\"+file);//Łap wyjątek!
             }catch(System.IO.FileNotFoundException){
                 System.Console.WriteLine("Nie odnaleziono pliku");
                 System.Console.ReadKey();
