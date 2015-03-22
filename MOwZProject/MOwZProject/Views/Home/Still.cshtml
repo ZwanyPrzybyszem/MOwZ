@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Algorytm Stilla (kryterium Hilla)";
+}
+<h2>@ViewBag.Title</h2>
+<h3 style="color:dodgerblue">@ViewBag.Message</h3>
+
+@using (Html.BeginForm("Still",
+                        "Home",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+    <label for="file">Wybierz plik z danymi do przetworzenia:</label>
+    <input type="file" name="file" id="file" /><br><br>
+    <input type="submit" value="Przetwórz dane" />
+    <br><br>
+
+
+
+}
