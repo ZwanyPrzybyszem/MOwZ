@@ -55,9 +55,12 @@ namespace MOwZProject.Controllers
                         if (words.Length == 2 && words[0] == p.Length && words.All(x => x > 0) && p.All(x => x > 0))
                         {
 
-                            process(words[0], words[1], p);
-
+                            //process(words[0], words[1], p);
+                            List<int> result = getResult(words[0], words[1], p);
                             ViewBag.Message = "Przetworzono pomyślnie.";
+
+                            ViewData["iters"] = result;
+                            
                         }
                         else
                         {
@@ -90,10 +93,10 @@ namespace MOwZProject.Controllers
         /// <param name="all">Liczba rozważanych stanów.</param>
         /// <param name="size">Liczba miejsc do przydziału (rozmair parlamentu).</param>
         /// <param name="p">Wektor liczności poszczególnych stanów.</param>
-        private void process(int all, int size, int[] p)
+        public void process(int all, int size, int[] p)
         {
 
-            Dictionary<int, int> result = getResult(all, size, p);
+            List<int> result = getResult(all, size, p);
 
         }
 
@@ -108,10 +111,11 @@ namespace MOwZProject.Controllers
         /// <param name="size">Liczba miejsc do przydziału (rozmair parlamentu).</param>
         /// <param name="p">Wektor liczności poszczególnych stanów.</param>
         /// <returns>Lista kolejnych przydziałów miejsc.</returns>
-        private Dictionary<int, int> getResult(int all, int size, int[] p)
+        private List<int> getResult(int all, int size, int[] p)
         {
             ///Reprezentuje poszczegóne iteracje (w ktorej zostało komu przydzielone miejsce w parlamencie)
-            Dictionary<int, int> iters = new Dictionary<int, int>();
+            //Dictionary<int, int> iters = new Dictionary<int, int>();
+            List<int> iterations = new List<int>();
 
             int[] a = new int[all];
 
@@ -137,7 +141,7 @@ namespace MOwZProject.Controllers
                 try
                 {
                     temp = still(p, list, a, hi);
-                    iters.Add(hi, temp); //dla danej iteracji komu przydzielono
+                    iterations.Add(temp); //dla danej iteracji komu przydzielono
                     a[temp]++;
 
                     /*
@@ -161,7 +165,7 @@ namespace MOwZProject.Controllers
                 list.Clear();
             }
 
-            return iters;
+            return iterations;
         }
 
 

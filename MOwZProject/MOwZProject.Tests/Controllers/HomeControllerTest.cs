@@ -39,16 +39,28 @@ namespace MOwZProject.Tests.Controllers
         }
 
         [TestMethod]
-        public void Contact()
+        public void Still()
         {
             // Arrange
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Contact() as ViewResult;
+            ViewResult result = controller.Still() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void Still2()
+        {
+
+            HomeController controller = new HomeController();
+            var privateObject = new PrivateObject(controller);
+            List<int> result = (List<int>)privateObject.Invoke("getResult", 2, 2, new int[2] { 5, 5 });
+            List<int> temp = new List<int> { 0, 1 };
+
+            Assert.AreEqual(result.ElementAt(1), temp.ElementAt(1));
         }
     }
 }

@@ -13,7 +13,17 @@
     <input type="file" name="file" id="file" /><br><br>
     <input type="submit" value="Przetwórz dane" />
     <br><br>
+    
 
 
-
+}
+@if (ViewData["iters"] != null)
+{
+    foreach (var i in (List<int>)ViewData["iters"])
+{
+    <li>
+        @i.ToString()
+    </li> 
+}
+    
 }
