@@ -135,12 +135,10 @@ namespace MOwZProject.Controllers
                 {
                     list.Add(i, p[i] / hill(a[i]));
                 }
-                list.OrderByDescending(x => x.Value);
-
-
+                
                 try
                 {
-                    temp = still(p, list, a, hi);
+                    temp = still(p, list.OrderByDescending(x => x.Value), a, hi);
                     iterations.Add(temp); //dla danej iteracji komu przydzielono
                     a[temp]++;
 
@@ -167,7 +165,6 @@ namespace MOwZProject.Controllers
 
             return iterations;
         }
-
 
 
 
@@ -216,7 +213,7 @@ namespace MOwZProject.Controllers
         /// <param name="p"></param>
         /// <param name="a"></param>
         /// <returns>Informacja, czy dany stan spełnia test dolnej kwoty.</returns>
-        private static bool spelniaDolnaKwote(int h, int index, int suma, SortedList<int, double> list, int[] p, int[] a)
+        private static bool spelniaDolnaKwote(int h, int index, int suma, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] p, int[] a)
         {
             int pi = p[index];
             int n = p.Length;
@@ -241,14 +238,14 @@ namespace MOwZProject.Controllers
             {
                 for (int k = 0; k < n; k++)
                 {
-                    if (list.Values[k] == index)
+                    if (list.ElementAt(k).Value == index)
                     {
-                        s[k] = a[list.Keys[k]] + 1;
+                        s[k] = a[list.ElementAt(k).Key] + 1;
                     }
                     else
                     {
                         //System.Console.WriteLine(a[list.Keys[k]] + "\t" + dolnaKwota(v[list.Values[k]], suma, hi));
-                        s[k] = Math.Max(a[list.Keys[k]], dolnaKwota(p[list.Keys[k]], suma, hi));
+                        s[k] = Math.Max(a[list.ElementAt(k).Key], dolnaKwota(p[list.ElementAt(k).Key], suma, hi));
                     }
                 }
 
@@ -281,14 +278,15 @@ namespace MOwZProject.Controllers
         /// <param name="a"></param>
         /// <param name="hi"></param>
         /// <returns>Numer stanu, któremu przydzielono miejsce lub -1.</returns>
-        public static int still(int[] p, SortedList<int, double> list, int[] a, int hi)
+        public static int still(int[] p, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] a, int hi)
         {
 
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Count(); i++)
             {
-                if (spelniaGornaKwote(p[list.Keys[i]], p.Sum(), hi, a[list.Keys[i]]) && spelniaDolnaKwote(hi, list.Keys[i], p.Sum(), list, p, a))
+                if (spelniaGornaKwote(p[list.ElementAt(i).Key], p.Sum(), hi, a[list.ElementAt(i).Key]) && 
+                    spelniaDolnaKwote(hi, list.ElementAt(i).Key, p.Sum(), list, p, a))
                 {
-                    return list.Keys[i];
+                    return list.ElementAt(i).Key;
                 }
             }
             return -1;
