@@ -104,6 +104,10 @@ namespace MOwZProject.Controllers
         }
 
 
+<<<<<<< HEAD
+=======
+
+
         public ActionResult EfficiencyChart(string names, string places)
         {
             Chart chart = new Chart();
@@ -125,6 +129,8 @@ namespace MOwZProject.Controllers
 
 
 
+
+>>>>>>> fbfa3b51f5e1259ae1e11a6b46ddc404675ad70e
         /// <summary>
         /// Metoda przetwarza dane zawarte w wczytanym pliku.
         /// </summary>

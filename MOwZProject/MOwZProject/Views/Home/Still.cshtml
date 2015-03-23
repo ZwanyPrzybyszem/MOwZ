@@ -17,13 +17,31 @@
 
 
 }
-@if (ViewData["iters"] != null)
+@if (ViewData["iters"] != null && ViewData["places"] != null && ViewData["names"] != null)
 {
-    foreach (var i in (List<int>)ViewData["iters"])
-{
-    <li>
-        @i.ToString()
-    </li> 
-}
+    int[] places = (int[])ViewData["places"];
+    string[] names = (string[])ViewData["names"];
+
+    string n = string.Join(" ", names);
+    string p = string.Join(" ", places);
+    <img src="@Url.Action("EfficiencyChart", "Home", new { names = @n, places = @p })" />
+
+    for (int i = 0; i < places.Length; i++)
+    {
+        <p>stan @names[i] : @places[i]</p> 
+    }
+    
+    <br />
+    <p><b>Przydział w kolejnych iteracjach:</b></p>
+        foreach (var i in (List<int>)ViewData["iters"])
+        {
+        <li>
+            @i.ToString()
+        </li> 
+        }
+    
     
 }
+
+        
+
