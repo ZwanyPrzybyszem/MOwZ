@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+//using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.UI.DataVisualization.Charting;//.Chart;
 
 namespace MOwZProject.Controllers
 {
@@ -22,6 +24,14 @@ namespace MOwZProject.Controllers
         }
 
 
+        public ActionResult Chart()
+        {
+            //int[] data = (int[])(Request["places"]);
+            
+            return View();
+        }
+
+        
 
         public ActionResult Still()
         {
@@ -43,7 +53,7 @@ namespace MOwZProject.Controllers
 
                         int[] words;
                         int[] p;
-
+                        
 
                         using (StreamReader reader = new StreamReader(file.InputStream))
                         {
@@ -59,7 +69,17 @@ namespace MOwZProject.Controllers
                             List<int> result = getResult(words[0], words[1], p);
                             ViewBag.Message = "Przetworzono pomyślnie.";
 
+                            int[] places = new int[words[0]];
+                            string[] names = new string[words[0]];
+                            for (int i = 0; i< words[0]; i++)
+                            {
+                                places[i] = result.Count(x => x == i);
+                                names[i] = i.ToString();
+                            }
+
                             ViewData["iters"] = result;
+                            ViewData["places"] = places;
+                            ViewData["names"] = names;
                             
                         }
                         else
@@ -81,6 +101,27 @@ namespace MOwZProject.Controllers
                 ViewBag.Message = "Nie wybrano pliku!";
             }
             return View();
+        }
+
+
+
+
+        public ActionResult EfficiencyChart(string names, string places)
+        {
+            Chart chart = new Chart();
+            chart.ChartAreas.Add(new ChartArea());
+
+            chart.Series.Add(new Series("Data"));
+            chart.Series["Data"].ChartType = SeriesChartType.Pie;
+            chart.Series["Data"]["PieLabelStyle"] = "Outside";
+            chart.Series["Data"]["PieLineColor"] = "Black";
+            chart.Series["Data"].Points.DataBindXY(
+                names.Split(' '),
+                Array.ConvertAll(places.Split(' '), Int32.Parse));
+
+            MemoryStream ms = new MemoryStream();
+            chart.SaveImage(ms, ChartImageFormat.Png);
+            return File(ms.ToArray(), "image/png");
         }
 
 
@@ -136,6 +177,8 @@ namespace MOwZProject.Controllers
                     list.Add(i, p[i] / hill(a[i]));
                 }
                 
+                /////////////////var l = list.OrderByDescending(x => x.Value);
+
                 try
                 {
                     temp = still(p, list.OrderByDescending(x => x.Value), a, hi);
