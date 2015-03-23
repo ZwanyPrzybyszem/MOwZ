@@ -47,9 +47,9 @@ namespace MOwZProject.Controllers
 
                         using (StreamReader reader = new StreamReader(file.InputStream))
                         {
-                            words = Array.ConvertAll(reader.ReadLine().Split(' '), Int32.Parse);
+                            words = Array.ConvertAll(reader.ReadLine().Split(new Char[]{' ', '\t'}), Int32.Parse);
 
-                            p = Array.ConvertAll(reader.ReadLine().Split(' '), Int32.Parse);
+                            p = Array.ConvertAll(reader.ReadLine().Split(new Char[]{' ', '\t'} ), Int32.Parse);
                         }
 
                         if (words.Length == 2 && words[0] == p.Length && words.All(x => x > 0) && p.All(x => x > 0))
@@ -84,9 +84,6 @@ namespace MOwZProject.Controllers
         }
 
 
-
-
-
         /// <summary>
         /// Metoda przetwarza dane zawarte w wczytanym pliku.
         /// </summary>
@@ -99,9 +96,6 @@ namespace MOwZProject.Controllers
             List<int> result = getResult(all, size, p);
 
         }
-
-
-
 
 
         /// <summary>
@@ -142,22 +136,15 @@ namespace MOwZProject.Controllers
                     iterations.Add(temp); //dla danej iteracji komu przydzielono
                     a[temp]++;
 
-                    /*
-                    foreach (int aa in a)
+                    if (a[temp] > p[temp])//Stan nie może mieć więcej miejsc w parlamencie niż obywateli.
                     {
-                        System.Console.Write(aa + "\t");
+                        throw new Exception(String.Format("Nie da się przydzielić stanowi więcej miejsc w parlamencie, bo stan ma za mało obywateli"));
                     }
-                    System.Console.WriteLine();
-                    */
+
                 }
                 catch (IndexOutOfRangeException)
                 {
                     throw new Exception(String.Format("Nie da się przydzielić {0} miejsca w parlamencie", hi));
-                    /*
-                    System.Console.WriteLine("Nie da się przydzielić {0} miejsca w parlamencie", hi);
-                    System.Console.ReadKey();
-                    return;
-                    */
                 }
 
                 list.Clear();
@@ -165,8 +152,6 @@ namespace MOwZProject.Controllers
 
             return iterations;
         }
-
-
 
 
         /// <summary>
@@ -179,12 +164,8 @@ namespace MOwZProject.Controllers
         /// <returns>Informacja, czy dany stan spełnia test górnej kwoty.</returns>
         private static bool spelniaGornaKwote(double pi, double Epi, int ha, int ai)
         {
-            //System.Console.WriteLine((pi * ha / Epi) + "\t" + Math.Ceiling((pi * ha) / Epi) + " >= " + ai + "\t" + (Math.Ceiling((pi * ha) / Epi) >= ai ? Boolean.TrueString : Boolean.FalseString));
             return Math.Ceiling((pi * ha) / Epi) >= ai;
         }
-
-
-
 
 
         /// <summary>
@@ -221,17 +202,6 @@ namespace MOwZProject.Controllers
             double tmp = Math.Ceiling((double)suma / pi);
             int hb = tmp < n ? Convert.ToInt32(tmp) : n + 1; //+1, bo potem sprawdzamy do <hb, ale tylko w przypadku gdy wartość jest niezmieniona, tj. wartość mianownika/licznik
 
-
-            /*
-            string tmpOut = "a: ";
-            foreach (int aa in a)
-            {
-                tmpOut += aa + " ";
-            }
-            tmpOut += " < " + hb;
-            System.Console.WriteLine(tmpOut);
-            */
-
             int[] s = new int[n];
 
             for (int hi = h; hi < hb; hi++)
@@ -244,20 +214,9 @@ namespace MOwZProject.Controllers
                     }
                     else
                     {
-                        //System.Console.WriteLine(a[list.Keys[k]] + "\t" + dolnaKwota(v[list.Values[k]], suma, hi));
                         s[k] = Math.Max(a[list.ElementAt(k).Key], dolnaKwota(p[list.ElementAt(k).Key], suma, hi));
                     }
                 }
-
-                /*
-                tmpOut = "s: ";
-                foreach (int ss in s)
-                {
-                    tmpOut += ss + " ";
-                }
-                tmpOut += " < " + hi;
-                System.Console.WriteLine(tmpOut);
-                */
 
                 if (s.Sum() > hi || s.Sum() >= hb)
                 {
