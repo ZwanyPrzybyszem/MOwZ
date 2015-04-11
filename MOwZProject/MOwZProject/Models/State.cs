@@ -22,7 +22,7 @@ namespace MOwZProject.Models
         public int Size { get; set; }
 
         [DisplayName("Zdobyte mandaty")]
-        public int? Mandats { get; set; }
+        public int Mandats { get; set; }
 
     }
 }

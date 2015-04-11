@@ -24,8 +24,8 @@
         @Html.TextBoxFor(m => m.FileWithData, new { type = "file" })
 
         <br />
-
-        <input type="checkbox" name="details" id="details" alt="details" /> <label for="details">Wyświetl szczegóły przetwarzania</label>
+        @Html.CheckBoxFor(m => m.ProblemFromFile.details)
+        @Html.LabelFor(m => m.ProblemFromFile.details)
         <br />
         <br />
 
@@ -38,7 +38,7 @@
 {
     <br />
     <br />
-    
+
     //TODO zmiana parametru przy tworzeniu wykresu
     string n = string.Join(" ", Model.ProblemFromFile.States.Select(s => s.Name).ToArray());
     string p = string.Join(" ", Model.ProblemFromFile.States.Select(s => s.Mandats).ToArray());
@@ -47,7 +47,7 @@
     <br />
 
     <p>Liczba przydzielanych miejsc: <b>@Html.DisplayFor(model => model.ProblemFromFile.ParlamentSize)</b> </p>
-    
+
     <table class="table">
         <tr>
             <th>
@@ -62,25 +62,77 @@
         </tr>
         @foreach (var item in Model.ProblemFromFile.States)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mandats)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mandats)
+                </td>
+            </tr>
 
         }
 
     </table>
-    
-    
-    
-    
-    
-    //TODO wyświetlanie szczegółów
+
+
+
+
+        //TODO wyświetlanie szczegółów
+        if (Model.ProblemFromFile.details && Model.ProblemFromFile.Steps != null)
+        {
+
+            <p>Kroki algorytmu: </p>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProblemFromFile.Steps.First().Element)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProblemFromFile.Steps.First().GornaKwota)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProblemFromFile.Steps.First().DolnaKwota)
+                    </th>
+                </tr>
+                @foreach (var item in Model.ProblemFromFile.Steps)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Element)
+                        </td>
+                        @if ((bool)item.SpelniaTestGornejKwoty)
+                        {
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.GornaKwota)
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.GornaKwota)
+                            </td>
+                        }
+                        @if ((bool)item.SpelniaTestDolnejKwoty)
+                        {
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.DolnaKwota)
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.DolnaKwota)
+                            </td>
+                        }
+                    </tr>
+
+                }
+
+            </table>
+        }
 }

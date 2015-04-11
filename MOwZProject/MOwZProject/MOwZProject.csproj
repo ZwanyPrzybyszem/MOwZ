@@ -120,6 +120,7 @@
     <Compile Include="Models\FileProblem.cs" />
     <Compile Include="Models\Problem.cs" />
     <Compile Include="Models\State.cs" />
+    <Compile Include="Models\Step.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

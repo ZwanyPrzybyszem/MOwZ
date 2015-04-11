@@ -42,9 +42,10 @@ namespace MOwZProject.Models
             if (words.Length == 2 && words[0] == p.Length && words.All(x => x > 0) && p.All(x => x > 0))
             {
 
-                this.ProblemFromFile = new Problem();
+                //this.ProblemFromFile = new Problem();
                 this.ProblemFromFile.ParlamentSize = words[1];
                 this.ProblemFromFile.States.Clear();
+          
 
                 for (int i = 0; i < p.Length; i++)
                 {

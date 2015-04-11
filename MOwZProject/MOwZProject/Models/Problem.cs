@@ -22,7 +22,10 @@ namespace MOwZProject.Models
         //Przydziały w koljenych iteracjach
         public List<int> Iterations;
 
-        //public List<Step> Steps;
+        [DisplayName("Wyświetl szczegóły przetwarzania")]
+        public bool details { get; set; }
+
+        public List<Step> Steps;
 
         public Problem()
         {
@@ -62,6 +65,11 @@ namespace MOwZProject.Models
 
             SortedList<int, double> list = new SortedList<int, double>();
             int temp;
+
+            if (this.details)
+            {
+                this.Steps = new List<Step>();
+            }
 
             for (int hi = 1; hi <= this.ParlamentSize; hi++)
             {
@@ -115,14 +123,22 @@ namespace MOwZProject.Models
         /// <param name="a"></param>
         /// <param name="hi"></param>
         /// <returns>Numer stanu, któremu przydzielono miejsce lub -1.</returns>
-        private static int still(int[] p, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] a, int hi)
+        private int still(int[] p, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] a, int hi)
         {
-
             for (int i = 0; i < list.Count(); i++)
             {
+                if (details)
+                {
+                    this.Steps.Add(new Step());
+                    this.Steps.Last().Element = this.States.Find(s => s.id == list.ElementAt(i).Key).Name;
+                }
                 if (spelniaGornaKwote(p[list.ElementAt(i).Key], p.Sum(), hi, a[list.ElementAt(i).Key]) &&
                     spelniaDolnaKwote(hi, list.ElementAt(i).Key, p.Sum(), list, p, a))
                 {
+                    if (details && this.Steps.Last().DolnaKwota == null)
+                    {
+                        this.Steps.Last().DolnaKwota = "Niespełniono testu górnej kwoty";
+                    }
                     return list.ElementAt(i).Key;
                 }
             }
@@ -141,7 +157,7 @@ namespace MOwZProject.Models
         /// <param name="p"></param>
         /// <param name="a"></param>
         /// <returns>Informacja, czy dany stan spełnia test dolnej kwoty.</returns>
-        private static bool spelniaDolnaKwote(int h, int index, int suma, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] p, int[] a)
+        private bool spelniaDolnaKwote(int h, int index, int suma, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] p, int[] a)
         {
             int pi = p[index];
             int n = p.Length;
@@ -166,11 +182,21 @@ namespace MOwZProject.Models
                     }
                 }
 
-                
+                if (this.details)
+                {
+                    this.Steps.Last().DolnaKwota = "(" + s.Sum().ToString() + " ≤ " + hi.ToString() + ") AND (" + s.Sum().ToString() + " < " + hb.ToString() + ")";
+                    this.Steps.Last().SpelniaTestDolnejKwoty = (s.Sum() <= hi && s.Sum() < hb);
+                }
+
                 if (s.Sum() > hi || s.Sum() >= hb)
                 {
                     return false;
                 }
+            }
+            if (this.details && this.Steps.Last().DolnaKwota == null)
+            {
+                this.Steps.Last().DolnaKwota = "Sepełniony, ale nie wiem dlaczego";
+                this.Steps.Last().SpelniaTestDolnejKwoty = true;
             }
             return true;
         }
@@ -200,8 +226,13 @@ namespace MOwZProject.Models
         /// <param name="ha"></param>
         /// <param name="ai">Miejsca przydzielone dla tego stanu.</param>
         /// <returns>Informacja, czy dany stan spełnia test górnej kwoty.</returns>
-        private static bool spelniaGornaKwote(double pi, double Epi, int ha, int ai)
+        private bool spelniaGornaKwote(double pi, double Epi, int ha, int ai)
         {
+            if (this.details)
+            {
+                this.Steps.Last().GornaKwota = "⌈ (" + pi.ToString() + " * " + ha.ToString() + ") / " + Epi.ToString() + " ⌉ >= " + ai.ToString();
+                this.Steps.Last().SpelniaTestGornejKwoty = Math.Ceiling((pi * ha) / Epi) >= ai;
+            }
             return Math.Ceiling((pi * ha) / Epi) >= ai;
         }
 

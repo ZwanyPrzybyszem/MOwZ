@@ -48,7 +48,7 @@ namespace MOwZProject.Controllers
 
         // POST: State/Create
         [HttpPost]
-        public ActionResult FileProblemForm(FileProblem model, string details)
+        public ActionResult FileProblemForm(FileProblem model)
         {
             try
             {
