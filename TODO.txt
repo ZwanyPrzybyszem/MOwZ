@@ -1,0 +1,7 @@
+Opcjonalne wyœwietlanie szczegó³ów
+Zmiana wykresu - ¿eby nie dzia³a³ na stringach
+dodawanie stanów przy formularzu
+Generowanie wyników przy formularzu
+Zmiana algorytmu ¿eby dzia³a³ na obiekcie
+Zmiana testów
+DOdanie komentarzy + dokumentacja

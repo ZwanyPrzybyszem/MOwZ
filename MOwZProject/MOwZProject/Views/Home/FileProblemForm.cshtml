@@ -1,0 +1,86 @@
+﻿@model MOwZProject.Models.FileProblem
+
+@{
+    ViewBag.Title = "Algorytm Stilla (kryterium Hilla)";
+}
+
+
+@using (Html.BeginForm("FileProblemForm", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h2>@ViewBag.Title</h2>
+    <hr />
+    <h3 style="color:dodgerblue">@ViewBag.Message</h3>
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <p>@Html.LabelFor(m => m.FileWithData)</p>
+        <div class="text-danger">
+            @Html.ValidationMessageFor(x => x.FileWithData)
+        </div>
+        @Html.TextBoxFor(m => m.FileWithData, new { type = "file" })
+
+        <br />
+
+        <input type="checkbox" name="details" id="details" alt="details" /> <label for="details">Wyświetl szczegóły przetwarzania</label>
+        <br />
+        <br />
+
+        <input type="submit" value="Przetwórz dane" class="btn btn-primary" />
+
+    </div>
+}
+
+@if (Model.ProblemFromFile != null)
+{
+    <br />
+    <br />
+    
+    //TODO zmiana parametru przy tworzeniu wykresu
+    string n = string.Join(" ", Model.ProblemFromFile.States.Select(s => s.Name).ToArray());
+    string p = string.Join(" ", Model.ProblemFromFile.States.Select(s => s.Mandats).ToArray());
+    <img src="@Url.Action("EfficiencyChart", "Home", new { names = @n , places = @p })" />
+
+    <br />
+
+    <p>Liczba przydzielanych miejsc: <b>@Html.DisplayFor(model => model.ProblemFromFile.ParlamentSize)</b> </p>
+    
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProblemFromFile.States.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProblemFromFile.States.First().Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProblemFromFile.States.First().Mandats)
+            </th>
+        </tr>
+        @foreach (var item in Model.ProblemFromFile.States)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mandats)
+            </td>
+        </tr>
+
+        }
+
+    </table>
+    
+    
+    
+    
+    
+    //TODO wyświetlanie szczegółów
+}

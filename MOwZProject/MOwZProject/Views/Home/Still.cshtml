@@ -1,5 +1,12 @@
 ﻿@{
     ViewBag.Title = "Algorytm Stilla (kryterium Hilla)";
+
+    
+    ///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////// CALY PLIK DO USUNIECIA //////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
+    
+    
 }
 <h2>@ViewBag.Title</h2>
 <h3 style="color:dodgerblue">@ViewBag.Message</h3>
@@ -13,7 +20,7 @@
     <input type="file" name="file" id="file" /><br><br>
     <input type="submit" value="Przetwórz dane" />
     <br><br>
-    
+
 
 
 }
@@ -28,20 +35,20 @@
 
     for (int i = 0; i < places.Length; i++)
     {
-        <p>stan @names[i] : @places[i]</p> 
+        <p>stan @names[i] : @places[i]</p>
     }
-    
+
     <br />
     <p><b>Przydział w kolejnych iteracjach:</b></p>
-        foreach (var i in (List<int>)ViewData["iters"])
-        {
+    foreach (var i in (List<int>)ViewData["iters"])
+    {
         <li>
             @i.ToString()
-        </li> 
-        }
-    
-    
+        </li>
+    }
+
+
 }
 
-        
+
 

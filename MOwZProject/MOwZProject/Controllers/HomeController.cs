@@ -1,11 +1,12 @@
-﻿using System;
+﻿using MOwZProject.Models;//.Chart;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-//using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Web.UI.DataVisualization.Charting;//.Chart;
+using System.Web.UI.DataVisualization.Charting;
+using System.Web.UI.HtmlControls;
 
 namespace MOwZProject.Controllers
 {
@@ -24,14 +25,107 @@ namespace MOwZProject.Controllers
         }
 
 
-        public ActionResult Chart()
+        public ActionResult ProblemForm()
         {
-            //int[] data = (int[])(Request["places"]);
-            
-            return View();
+            ViewData["i"] = 1;
+            return View(new Problem());
+        }
+
+
+        [HttpPost]
+        public ActionResult ProblemForm(Problem Problem, List<State> States)
+        {
+
+            Problem.States = States;
+            return View(Problem);
+        }
+
+
+        public ActionResult FileProblemForm()
+        {
+            return View(new FileProblem());
+        }
+
+        // POST: State/Create
+        [HttpPost]
+        public ActionResult FileProblemForm(FileProblem model, string details)
+        {
+            try
+            {
+                model.updateProblem();
+                model.ProblemFromFile.getStillResult();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "ERROR:" + ex.Message.ToString();
+            }
+            return View(model);
+        }
+
+
+        // GET: State/Create
+        public ActionResult StateForm()
+        {
+            return PartialView("_StateForm");
+        }
+
+        // POST: State/Create
+        [HttpPost]
+        public ActionResult StateForm(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("ProblemForm");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         
+
+        //TODO zmiana stringa
+        public ActionResult EfficiencyChart(string names, string places)
+        {
+            Chart chart = new Chart();
+            chart.ChartAreas.Add(new ChartArea());
+
+            //TODO legenda?
+
+            chart.Series.Add(new Series("Data"));
+            chart.Series["Data"].ChartType = SeriesChartType.Pie;
+            chart.Series["Data"]["PieLabelStyle"] = "Outside";
+            chart.Series["Data"]["PieLineColor"] = "Black";
+            chart.Series["Data"].Points.DataBindXY(
+                names.Split(' '),
+                Array.ConvertAll(places.Split(' '), Int32.Parse));
+
+            MemoryStream ms = new MemoryStream();
+            chart.SaveImage(ms, ChartImageFormat.Png);
+            return File(ms.ToArray(), "image/png");
+        }
+
+
+        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////// PONIZEJ WSZYTSKO DO WYRZUCENIA //////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        // zostało przeniesione do obiektów //
+
+
+        /// <summary>
+        /// //////????????????????????????????????????
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Chart()
+        {
+            return View();
+        }
+
+
+
 
         public ActionResult Still()
         {
@@ -53,13 +147,13 @@ namespace MOwZProject.Controllers
 
                         int[] words;
                         int[] p;
-                        
+
 
                         using (StreamReader reader = new StreamReader(file.InputStream))
                         {
-                            words = Array.ConvertAll(reader.ReadLine().Split(new Char[]{' ', '\t'}), Int32.Parse);
+                            words = Array.ConvertAll(reader.ReadLine().Split(new Char[] { ' ', '\t' }), Int32.Parse);
 
-                            p = Array.ConvertAll(reader.ReadLine().Split(new Char[]{' ', '\t'} ), Int32.Parse);
+                            p = Array.ConvertAll(reader.ReadLine().Split(new Char[] { ' ', '\t' }), Int32.Parse);
                         }
 
                         if (words.Length == 2 && words[0] == p.Length && words.All(x => x > 0) && p.All(x => x > 0))
@@ -71,7 +165,7 @@ namespace MOwZProject.Controllers
 
                             int[] places = new int[words[0]];
                             string[] names = new string[words[0]];
-                            for (int i = 0; i< words[0]; i++)
+                            for (int i = 0; i < words[0]; i++)
                             {
                                 places[i] = result.Count(x => x == i);
                                 names[i] = i.ToString();
@@ -80,7 +174,7 @@ namespace MOwZProject.Controllers
                             ViewData["iters"] = result;
                             ViewData["places"] = places;
                             ViewData["names"] = names;
-                            
+
                         }
                         else
                         {
@@ -104,26 +198,6 @@ namespace MOwZProject.Controllers
         }
 
 
-        public ActionResult EfficiencyChart(string names, string places)
-        {
-            Chart chart = new Chart();
-            chart.ChartAreas.Add(new ChartArea());
-
-            chart.Series.Add(new Series("Data"));
-            chart.Series["Data"].ChartType = SeriesChartType.Pie;
-            chart.Series["Data"]["PieLabelStyle"] = "Outside";
-            chart.Series["Data"]["PieLineColor"] = "Black";
-            chart.Series["Data"].Points.DataBindXY(
-                names.Split(' '),
-                Array.ConvertAll(places.Split(' '), Int32.Parse));
-
-            MemoryStream ms = new MemoryStream();
-            chart.SaveImage(ms, ChartImageFormat.Png);
-            return File(ms.ToArray(), "image/png");
-        }
-
-
-
 
         /// <summary>
         /// Metoda przetwarza dane zawarte w wczytanym pliku.
@@ -137,6 +211,9 @@ namespace MOwZProject.Controllers
             List<int> result = getResult(all, size, p);
 
         }
+
+
+
 
 
         /// <summary>
@@ -183,11 +260,11 @@ namespace MOwZProject.Controllers
                     {
                         throw new Exception(String.Format("Nie da się przydzielić stanowi więcej miejsc w parlamencie, bo stan ma za mało obywateli"));
                     }
-
                 }
                 catch (IndexOutOfRangeException)
                 {
                     throw new Exception(String.Format("Nie da się przydzielić {0} miejsca w parlamencie", hi));
+                    
                 }
 
                 list.Clear();
@@ -195,6 +272,8 @@ namespace MOwZProject.Controllers
 
             return iterations;
         }
+
+
 
 
         /// <summary>
@@ -209,6 +288,9 @@ namespace MOwZProject.Controllers
         {
             return Math.Ceiling((pi * ha) / Epi) >= ai;
         }
+
+
+
 
 
         /// <summary>
@@ -245,6 +327,7 @@ namespace MOwZProject.Controllers
             double tmp = Math.Ceiling((double)suma / pi);
             int hb = tmp < n ? Convert.ToInt32(tmp) : n + 1; //+1, bo potem sprawdzamy do <hb, ale tylko w przypadku gdy wartość jest niezmieniona, tj. wartość mianownika/licznik
 
+
             int[] s = new int[n];
 
             for (int hi = h; hi < hb; hi++)
@@ -260,6 +343,7 @@ namespace MOwZProject.Controllers
                         s[k] = Math.Max(a[list.ElementAt(k).Key], dolnaKwota(p[list.ElementAt(k).Key], suma, hi));
                     }
                 }
+
 
                 if (s.Sum() > hi || s.Sum() >= hb)
                 {
