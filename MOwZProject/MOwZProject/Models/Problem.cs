@@ -30,6 +30,7 @@ namespace MOwZProject.Models
         public Problem()
         {
             States = new List<State>();
+            States.Add(new State());
             Iterations = new List<int>();
         }
 

@@ -1,7 +1,8 @@
-Opcjonalne wyœwietlanie szczegó³ów
-Zmiana wykresu - ¿eby nie dzia³a³ na stringach
-dodawanie stanów przy formularzu
-Generowanie wyników przy formularzu
+wyœwietlanie szczegó³ów - poprawka danych, bo blednie wyswietla
 Zmiana algorytmu ¿eby dzia³a³ na obiekcie
 Zmiana testów
+
 DOdanie komentarzy + dokumentacja
+
+Zmiana wykresu - ¿eby nie dzia³a³ na stringach
+Generowanie wyników przy formularzu - poprawka

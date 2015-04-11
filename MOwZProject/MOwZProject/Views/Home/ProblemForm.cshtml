@@ -24,30 +24,156 @@
         </div>
 
         <!-- TODO aktualizowanie danych o stanie + wysiwetlanie tego-->
-        @foreach (var item in Model.States)
-        {
-            <li>@Html.DisplayFor(score => item.Name) @Html.DisplayFor(score => item.Size) @Html.DisplayFor(score => item.Mandats) </li>
-        }
 
+        <br />
 
+        <table>
+            <tr>
+                <th>
 
+                </th>
+                <th>
+                    @Html.LabelFor(m => m.States[0].Name)
+                </th>
+                <th>
+                    @Html.LabelFor(m => m.States[0].Size)
+                </th>
+            </tr>
+            @for (int i = 0; i < Model.States.Count(); i++)
+            {
+                <tr>
+                    <th>
+                        @(i + 1)
+                    </th>
+                    <th>
+                        @Html.TextBoxFor(m => m.States[i].Name)
+                    </th>
+                    <th>
+                        @Html.TextBoxFor(m => m.States[i].Size)
+                    </th>
+                </tr>
+            }
+        </table>
 
-
-
-        
-
-        @Html.ActionLink("Dodaj nowy stan", "StateForm", "Home", null, new { @class = "modal-link btn btn-default" })
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Przetwórz dane" class="btn btn-primary" />
-            </div>
+        <br />
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Dodaj nowy stan" class="btn btn-default" name="add" />
         </div>
+
+
+
+        <br />
+
+        @Html.CheckBoxFor(m => m.details)
+        @Html.LabelFor(m => m.details)
+        <br />
+        <input type="submit" value="Przetwórz dane" class="btn btn-primary" name="process" />
+
     </div>
 }
 
-<div>
-    <!--@Html.ActionLink("Back to List", "Index")-->
-</div>
+<!------------------------------------------------------>
+@if (Model.Iterations != null && Model.Iterations.Count > 0)
+{
+    <br />
+    <br />
+
+    //TODO zmiana parametru przy tworzeniu wykresu
+    string n = string.Join(" ", Model.States.Select(s => s.Name).ToArray());
+    string p = string.Join(" ", Model.States.Select(s => s.Mandats).ToArray());
+    <img src="@Url.Action("EfficiencyChart", "Home", new { names = @n , places = @p })" />
+
+    <br />
+
+    <p>Liczba przydzielanych miejsc: <b>@Html.DisplayFor(model => model.ParlamentSize)</b> </p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.States.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.States.First().Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.States.First().Mandats)
+            </th>
+        </tr>
+        @foreach (var item in Model.States)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mandats)
+                </td>
+            </tr>
+
+        }
+
+    </table>
+
+
+
+
+        //TODO wyświetlanie szczegółów
+        if (Model.details && Model.Steps != null)
+        {
+
+            <p>Kroki algorytmu: </p>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Steps.First().Element)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Steps.First().GornaKwota)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Steps.First().DolnaKwota)
+                    </th>
+                </tr>
+                @foreach (var item in Model.Steps)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Element)
+                        </td>
+                        @if ((bool)item.SpelniaTestGornejKwoty)
+                        {
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.GornaKwota)
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.GornaKwota)
+                            </td>
+                        }
+                        @if ((bool)item.SpelniaTestDolnejKwoty)
+                        {
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.DolnaKwota)
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.DolnaKwota)
+                            </td>
+                        }
+                    </tr>
+
+                }
+
+            </table>
+        }
+}
+
+

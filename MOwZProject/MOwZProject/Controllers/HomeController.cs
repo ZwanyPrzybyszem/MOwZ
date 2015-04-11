@@ -25,6 +25,7 @@ namespace MOwZProject.Controllers
         }
 
 
+
         public ActionResult ProblemForm()
         {
             ViewData["i"] = 1;
@@ -33,10 +34,38 @@ namespace MOwZProject.Controllers
 
 
         [HttpPost]
-        public ActionResult ProblemForm(Problem Problem, List<State> States)
+        public ActionResult ProblemForm(Problem Problem, State State, string add, string process)
         {
+            ViewBag.Message = "";
+            if (add != null)
+            {
+                Problem.States.Add(new State() { id = Problem.States.Count });
+            }
+            else
+            {
+                if (Problem.ParlamentSize < 1)
+                {
+                    ViewBag.Message = "Wpisz odpowiednią liczbę miejsc do przydziału! ";
+                }
+                int i =0;
+                foreach (var s in Problem.States)
+                {
+                    s.id = i;
 
-            Problem.States = States;
+                    if (s.Name == null || s.Name.Length < 0 ||
+                        s.Size == null || s.Size < 1)
+                    {
+                        ViewBag.Message = ViewBag.Message + "Niepoprawne dane opisujące stany! Uzupełnij nazwę oraz rozmiar stanu (liczba) odpowiednimi danymi!";
+                        return View(Problem);
+                    }
+                    i++;
+
+                }
+                if (ViewBag.Message == "")
+                {
+                    Problem.getStillResult();
+                }
+            }
             return View(Problem);
         }
 
@@ -71,7 +100,7 @@ namespace MOwZProject.Controllers
 
         // POST: State/Create
         [HttpPost]
-        public ActionResult StateForm(FormCollection collection)
+        public ActionResult StateForm(State collection, Problem p)
         {
             try
             {
@@ -85,7 +114,7 @@ namespace MOwZProject.Controllers
             }
         }
 
-        
+
 
         //TODO zmiana stringa
         public ActionResult EfficiencyChart(string names, string places)
@@ -247,7 +276,7 @@ namespace MOwZProject.Controllers
                 {
                     list.Add(i, p[i] / hill(a[i]));
                 }
-                
+
                 /////////////////var l = list.OrderByDescending(x => x.Value);
 
                 try
@@ -264,7 +293,7 @@ namespace MOwZProject.Controllers
                 catch (IndexOutOfRangeException)
                 {
                     throw new Exception(String.Format("Nie da się przydzielić {0} miejsca w parlamencie", hi));
-                    
+
                 }
 
                 list.Clear();
@@ -369,7 +398,7 @@ namespace MOwZProject.Controllers
 
             for (int i = 0; i < list.Count(); i++)
             {
-                if (spelniaGornaKwote(p[list.ElementAt(i).Key], p.Sum(), hi, a[list.ElementAt(i).Key]) && 
+                if (spelniaGornaKwote(p[list.ElementAt(i).Key], p.Sum(), hi, a[list.ElementAt(i).Key]) &&
                     spelniaDolnaKwote(hi, list.ElementAt(i).Key, p.Sum(), list, p, a))
                 {
                     return list.ElementAt(i).Key;

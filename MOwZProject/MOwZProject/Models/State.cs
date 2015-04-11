@@ -16,8 +16,8 @@ namespace MOwZProject.Models
         [Required(ErrorMessage = "Nazwa stanu jest polem obowiązkowym")]
         public string Name { get; set; }
 
-        [DisplayName("Wielkość stanu")]
-        [Required(ErrorMessage = "Wielkość stanu jest polem obowiązkowym")]
+        [DisplayName("Rozmiar stanu")]
+        [Required(ErrorMessage = "Rozmiar stanu jest polem obowiązkowym")]
         [Range(0, int.MaxValue, ErrorMessage = "Wpisz liczbę z odpowiedniego przedziału")]
         public int Size { get; set; }
 
