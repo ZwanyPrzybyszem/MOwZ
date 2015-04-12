@@ -94,11 +94,14 @@ namespace MOwZProject.Models
                 try
                 {
                     temp = still(p, list.OrderByDescending(x => x.Value), a, hi, this.ParlamentSize);
-                    this.Iterations.Add(temp); //dla danej iteracji komu przydzielono
-                    //zwiekszenie licbzy mandatow
-                    this.States.Find(s => s.id == temp).Mandats++;
-                    a[temp]++;
 
+                    if (temp >= 0)
+                    {
+                        this.Iterations.Add(temp); //dla danej iteracji komu przydzielono
+                        //zwiekszenie licbzy mandatow
+                        this.States.Find(s => s.id == temp).Mandats++;
+                        a[temp]++;
+                    }
                     if (a[temp] > p[temp])//Stan nie może mieć więcej miejsc w parlamencie niż obywateli.
                     {
                         this.Iterations.Clear();
@@ -142,11 +145,11 @@ namespace MOwZProject.Models
                 if (spelniaGornaKwote(p[list.ElementAt(i).Key], p.Sum(), hi, a[list.ElementAt(i).Key]) &&
                     spelniaDolnaKwote(hi, list.ElementAt(i).Key, p.Sum(), list, p, a, parlamentSize))
                 {
-                    if (details && this.Steps.Last().DolnaKwota == null)
-                    {
-                        this.Steps.Last().DolnaKwota = "Niespełniono testu górnej kwoty";
-                    }
                     return list.ElementAt(i).Key;
+                }
+                if (details && this.Steps.Last().DolnaKwota == null)
+                {
+                    this.Steps.Last().DolnaKwota = "Niespełniono testu górnej kwoty";
                 }
             }
             return -1;
