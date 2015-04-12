@@ -27,6 +27,7 @@ namespace MOwZProject.Models
 
         public List<Step> Steps;
 
+
         public Problem()
         {
             States = new List<State>();
@@ -100,6 +101,11 @@ namespace MOwZProject.Models
 
                     if (a[temp] > p[temp])//Stan nie może mieć więcej miejsc w parlamencie niż obywateli.
                     {
+                        this.Iterations.Clear();
+                        foreach(State s in this.States)
+                        {
+                            s.Mandats = 0;
+                        }
                         throw new Exception(String.Format("Nie da się przydzielić stanowi więcej miejsc w parlamencie, bo stan ma za mało obywateli"));
                     }
                 }
@@ -218,7 +224,6 @@ namespace MOwZProject.Models
 
 
 
-
         /// <summary>
         /// Metoda przeprowadza test górnej kwoty dla stanu.
         /// </summary>
@@ -236,6 +241,7 @@ namespace MOwZProject.Models
             }
             return Math.Ceiling((pi * ha) / Epi) >= ai;
         }
+
 
 
         /// <summary>

@@ -12,70 +12,103 @@ namespace MOwZProject.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// GET dla strony głównej
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
 
+
+
+        /// <summary>
+        /// GET dla strony o autorach
+        /// </summary>
+        /// <returns></returns>
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
 
 
+        /// <summary>
+        /// GET dla formularza
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ProblemForm()
         {
-            ViewData["i"] = 1;
             return View(new Problem());
         }
 
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Problem">Obiekt reprezentujący problem do przetworzenia</param>
+        /// <param name="add">Zawiera dane, gdy wybrano opcję dodania nowego stanu</param>
+        /// <param name="process">Zawiera dane, gdy wybrano opcję rozwiązania problemu</param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult ProblemForm(Problem Problem, State State, string add, string process)
+        public ActionResult ProblemForm(Problem Problem, string add, string process)
         {
-            ViewBag.Message = "";
-            if (add != null)
+            try
             {
-                Problem.States.Add(new State() { id = Problem.States.Count });
-            }
-            else
-            {
-                if (Problem.ParlamentSize < 1)
+                ViewBag.Message = "";
+                if (add != null)
                 {
-                    ViewBag.Message = "Wpisz odpowiednią liczbę miejsc do przydziału! ";
+                    Problem.States.Add(new State() { id = Problem.States.Count });
                 }
-                int i =0;
-                foreach (var s in Problem.States)
+                else
                 {
-                    s.id = i;
-
-                    if (s.Name == null || s.Name.Length < 0 ||
-                        s.Size == null || s.Size < 1)
+                    if (Problem.ParlamentSize < 1)
                     {
-                        ViewBag.Message = ViewBag.Message + "Niepoprawne dane opisujące stany! Uzupełnij nazwę oraz rozmiar stanu (liczba) odpowiednimi danymi!";
-                        return View(Problem);
+                        throw new Exception(String.Format("Wpisz odpowiednią liczbę miejsc do przydziału! "));
                     }
-                    i++;
+                    int i = 0;
+                    foreach (var s in Problem.States)
+                    {
+                        s.id = i;
 
-                }
-                if (ViewBag.Message == "")
-                {
+                        if (s.Name == null || s.Name.Length < 0 ||
+                             s.Size < 1)
+                        {
+                            throw new Exception(String.Format("Niepoprawne dane opisujące stany! Uzupełnij nazwę oraz rozmiar stanu (liczba) odpowiednimi danymi!"));
+                        }
+                        i++;
+
+                    }
                     Problem.getStillResult();
                 }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "ERROR:" + ex.Message.ToString();
             }
             return View(Problem);
         }
 
 
+
+        /// <summary>
+        /// GET dla wczytywania pliku
+        /// </summary>
+        /// <returns></returns>
         public ActionResult FileProblemForm()
         {
             return View(new FileProblem());
         }
 
-        // POST: State/Create
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model">Obiekt zawierający zawartość pliku oraz obiekt reprezentujący problem</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult FileProblemForm(FileProblem model)
         {
@@ -92,37 +125,18 @@ namespace MOwZProject.Controllers
         }
 
 
-        // GET: State/Create
-        public ActionResult StateForm()
-        {
-            return PartialView("_StateForm");
-        }
-
-        // POST: State/Create
-        [HttpPost]
-        public ActionResult StateForm(State collection, Problem p)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("ProblemForm");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
 
         //TODO zmiana stringa
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="names">Nazwy stanów</param>
+        /// <param name="places">Liczby przydzielonych mandatów poszczególnym stanom</param>
+        /// <returns></returns>
         public ActionResult EfficiencyChart(string names, string places)
         {
             Chart chart = new Chart();
             chart.ChartAreas.Add(new ChartArea());
-
-            //TODO legenda?
 
             chart.Series.Add(new Series("Data"));
             chart.Series["Data"].ChartType = SeriesChartType.Pie;
@@ -136,6 +150,20 @@ namespace MOwZProject.Controllers
             chart.SaveImage(ms, ChartImageFormat.Png);
             return File(ms.ToArray(), "image/png");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /////////////////////////////////////////////////////////////////////////////////////

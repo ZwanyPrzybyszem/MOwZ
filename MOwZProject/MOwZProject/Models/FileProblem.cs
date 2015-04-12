@@ -66,12 +66,19 @@ namespace MOwZProject.Models
     /// </summary>
     public class CheckExtensions : ValidationAttribute
     {
+        public string ext { get; private set; }
+
+
+        
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="ext">Nazwa oczekiwanego rozszerzenia</param>
         public CheckExtensions(string ext)
         {
             this.ext = ext;
         }
 
-        public string ext { get; private set; }
 
 
         /// <summary>
