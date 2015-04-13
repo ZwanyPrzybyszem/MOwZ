@@ -42,7 +42,7 @@ namespace MOwZProject.Models
 
 
         /////////////////////////////////////////////////////////////////////////
-        /////// WSYZTSKO PONIZEJ DO ZMIANY ZEBY DZIALALO NA OBIEKCIE ////////////
+        /////// WSZYSTKO PONIZEJ DO ZMIANY ZEBY DZIALALO NA OBIEKCIE ////////////
         /////////////////////////////////////////////////////////////////////////
 
 
@@ -126,12 +126,12 @@ namespace MOwZProject.Models
 
 
         /// <summary>
-        /// 
+        /// Wyznaczenie stanu który otrzyma kolejne miejsce w parlamencie
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="list"></param>
-        /// <param name="a"></param>
-        /// <param name="hi"></param>
+        /// <param name="p">Lista liczności stanów</param>
+        /// <param name="list">Posortowana wg kryterium Hilla sekwencja stanów</param>
+        /// <param name="a">Lista przydziałów miejsc do stanów</param>
+        /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie</param>
         /// <returns>Numer stanu, któremu przydzielono miejsce lub -1.</returns>
         private int still(int[] p, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] a, int hi, int parlamentSize)
         {
@@ -160,12 +160,12 @@ namespace MOwZProject.Models
         /// <summary>
         /// Metoda przeprowadza test dolnej kwoty.
         /// </summary>
-        /// <param name="h"></param>
-        /// <param name="index"></param>
-        /// <param name="suma"></param>
-        /// <param name="list"></param>
-        /// <param name="p"></param>
-        /// <param name="a"></param>
+        /// <param name="h">Numer aktualnie przydzielanego miejsca w parlamencie</param>
+        /// <param name="index">Indeks sprawdzanego stanu</param>
+        /// <param name="suma">Suma liczności wszystkich stanów</param>
+        /// <param name="list">Posortowana wg kryterium Hilla sekwencja stanów</param>
+        /// <param name="p">Lista liczności stanów</param>
+        /// <param name="a">Lista przydziałów miejsc do stanów</param>
         /// <returns>Informacja, czy dany stan spełnia test dolnej kwoty.</returns>
         private bool spelniaDolnaKwote(int h, int index, int suma, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] p, int[] a, int parlamentSize)
         {
@@ -215,9 +215,9 @@ namespace MOwZProject.Models
         /// <summary>
         /// Metoda oblicza wartość dolnej kwoty.
         /// </summary>
-        /// <param name="pi"></param>
-        /// <param name="Epi"></param>
-        /// <param name="ha"></param>
+        /// <param name="pi">Liczność stanu</param>
+        /// <param name="Epi">Suma liczności wszystkich stanów</param>
+        /// <param name="ha">Numer aktualnie przydzielanego miejsca w parlamencie</param>
         /// <returns>Wartość dolnej kwoty.</returns>
         private static int dolnaKwota(double pi, double Epi, double ha)
         {
@@ -230,8 +230,8 @@ namespace MOwZProject.Models
         /// Metoda przeprowadza test górnej kwoty dla stanu.
         /// </summary>
         /// <param name="pi">Liczność stanu</param>
-        /// <param name="Epi"></param>
-        /// <param name="ha"></param>
+        /// <param name="Epi">Suma liczności wszystkich stanów</param>
+        /// <param name="ha">Numer aktualnie przydzielanego miejsca w parlamencie</param>
         /// <param name="ai">Miejsca przydzielone dla tego stanu.</param>
         /// <returns>Informacja, czy dany stan spełnia test górnej kwoty.</returns>
         private bool spelniaGornaKwote(double pi, double Epi, int ha, int ai)

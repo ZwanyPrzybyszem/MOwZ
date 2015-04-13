@@ -309,7 +309,7 @@ namespace MOwZProject.Controllers
 
                 try
                 {
-                    temp = still(p, list.OrderByDescending(x => x.Value), a, hi);
+                    temp = still(p, list.OrderByDescending(x => x.Value), a, hi,size);
                     iterations.Add(temp); //dla danej iteracji komu przydzielono
                     a[temp]++;
 
@@ -376,13 +376,13 @@ namespace MOwZProject.Controllers
         /// <param name="p"></param>
         /// <param name="a"></param>
         /// <returns>Informacja, czy dany stan spełnia test dolnej kwoty.</returns>
-        private static bool spelniaDolnaKwote(int h, int index, int suma, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] p, int[] a)
+        private static bool spelniaDolnaKwote(int h, int index, int suma, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] p, int[] a, int parlamentSize)
         {
             int pi = p[index];
             int n = p.Length;
 
-            double tmp = Math.Ceiling((double)suma / pi);
-            int hb = tmp < n ? Convert.ToInt32(tmp) : n + 1; //+1, bo potem sprawdzamy do <hb, ale tylko w przypadku gdy wartość jest niezmieniona, tj. wartość mianownika/licznik
+            double tmp = Math.Ceiling((double)suma/pi  * h);
+            int hb = tmp < parlamentSize ? Convert.ToInt32(tmp) : parlamentSize + 1; //+1, bo potem sprawdzamy do <hb, ale tylko w przypadku gdy wartość jest niezmieniona, tj. wartość mianownika/licznik
 
 
             int[] s = new int[n];
@@ -421,13 +421,13 @@ namespace MOwZProject.Controllers
         /// <param name="a"></param>
         /// <param name="hi"></param>
         /// <returns>Numer stanu, któremu przydzielono miejsce lub -1.</returns>
-        public static int still(int[] p, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] a, int hi)
+        public static int still(int[] p, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] a, int hi, int parlamentSize)
         {
 
             for (int i = 0; i < list.Count(); i++)
             {
                 if (spelniaGornaKwote(p[list.ElementAt(i).Key], p.Sum(), hi, a[list.ElementAt(i).Key]) &&
-                    spelniaDolnaKwote(hi, list.ElementAt(i).Key, p.Sum(), list, p, a))
+                    spelniaDolnaKwote(hi, list.ElementAt(i).Key, p.Sum(), list, p, a,parlamentSize))
                 {
                     return list.ElementAt(i).Key;
                 }
