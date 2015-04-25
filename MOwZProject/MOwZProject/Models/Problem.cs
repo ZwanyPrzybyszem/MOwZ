@@ -7,27 +7,55 @@ using System.Web;
 
 namespace MOwZProject.Models
 {
+    /// <summary>
+    /// Klasa reprezentująca dane przetwarzanego problemu.
+    /// </summary>
     public class Problem
     {
+        /// <summary>
+        /// Lista rozważanych stanów.
+        /// </summary>
         [DisplayName("Rozważane stany")]
         [Required(ErrorMessage="Konieczne jest podanie stanów!")]
         public List<State> States { get; set; }
         
+
+
+        /// <summary>
+        /// Rozmiar parlamentu.
+        /// </summary>
         [DisplayName("Wielkość parlamentu")]
         [Required(ErrorMessage = "Wielkość parlamentu jest polem obowiązkowym")]
         [Range(0, int.MaxValue, ErrorMessage = "Wpisz liczbę z odpowiedniego przedziału")]
         public int ParlamentSize { get; set; }
         
 
-        //Przydziały w koljenych iteracjach
-        public List<int> Iterations;
 
+        /// <summary>
+        /// Lista zawierająca przydziały w kolejnych iteracjach.
+        /// </summary>
+        public List<int> Iterations {get; set; }
+
+
+
+        /// <summary>
+        /// Informacja czy szczegóły mają być wyświetlane.
+        /// </summary>
         [DisplayName("Wyświetl szczegóły przetwarzania")]
         public bool details { get; set; }
 
-        public List<Step> Steps;
 
 
+        /// <summary>
+        /// Lista zawierająca szczegóły kolejnych kroków.
+        /// </summary>
+        public List<Step> Steps { get; set; }
+
+
+
+        /// <summary>
+        /// Konstruktor inicjalizujący listy.
+        /// </summary>
         public Problem()
         {
             States = new List<State>();
@@ -48,12 +76,8 @@ namespace MOwZProject.Models
 
 
         /// <summary>
-        /// Metoda wykonuje algorytm Stilla.
+        /// Rozwiązuje problem metodą Stilla z kryterium Hilla.
         /// </summary>
-        /// <param name="all">Liczba rozważanych stanów.</param>
-        /// <param name="size">Liczba miejsc do przydziału (rozmair parlamentu).</param>
-        /// <param name="p">Wektor liczności poszczególnych stanów.</param>
-        /// <returns>Lista kolejnych przydziałów miejsc.</returns>
         public void getStillResult()
         {
             
@@ -93,12 +117,12 @@ namespace MOwZProject.Models
 
                 try
                 {
-                    temp = still(p, list.OrderByDescending(x => x.Value), a, hi, this.ParlamentSize);
+                    temp = still(p, list.OrderByDescending(x => x.Value), a, hi);
 
                     if (temp >= 0)
                     {
                         this.Iterations.Add(temp); //dla danej iteracji komu przydzielono
-                        //zwiekszenie licbzy mandatow
+                        // zwiększenie liczby mandatów
                         this.States.Find(s => s.id == temp).Mandats++;
                         a[temp]++;
                     }
@@ -126,14 +150,14 @@ namespace MOwZProject.Models
 
 
         /// <summary>
-        /// Wyznaczenie stanu który otrzyma kolejne miejsce w parlamencie
+        /// Wyznaczenie stanu który otrzyma kolejne miejsce w parlamencie.
         /// </summary>
-        /// <param name="p">Lista liczności stanów</param>
-        /// <param name="list">Posortowana wg kryterium Hilla sekwencja stanów</param>
-        /// <param name="a">Lista przydziałów miejsc do stanów</param>
-        /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie</param>
-        /// <returns>Numer stanu, któremu przydzielono miejsce lub -1.</returns>
-        private int still(int[] p, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] a, int hi, int parlamentSize)
+        /// <param name="p">Lista liczności stanów.</param>
+        /// <param name="list">Posortowana wg kryterium Hilla sekwencja stanów.</param>
+        /// <param name="a">Lista przydziałów miejsc do stanów.</param>
+        /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie.</param>
+        /// <returns>Numer stanu, któremu przydzielono miejsce lub gdy przydział był niemożliwy -1.</returns>
+        private int still(int[] p, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] a, int hi)
         {
             for (int i = 0; i < list.Count(); i++)
             {
@@ -143,7 +167,7 @@ namespace MOwZProject.Models
                     this.Steps.Last().Element = this.States.Find(s => s.id == list.ElementAt(i).Key).Name;
                 }
                 if (spelniaGornaKwote(p[list.ElementAt(i).Key], p.Sum(), hi, a[list.ElementAt(i).Key]) &&
-                    spelniaDolnaKwote(hi, list.ElementAt(i).Key, p.Sum(), list, p, a, parlamentSize))
+                    spelniaDolnaKwote(hi, list.ElementAt(i).Key, p.Sum(), list, p, a))
                 {
                     return list.ElementAt(i).Key;
                 }
@@ -167,13 +191,13 @@ namespace MOwZProject.Models
         /// <param name="p">Lista liczności stanów</param>
         /// <param name="a">Lista przydziałów miejsc do stanów</param>
         /// <returns>Informacja, czy dany stan spełnia test dolnej kwoty.</returns>
-        private bool spelniaDolnaKwote(int h, int index, int suma, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] p, int[] a, int parlamentSize)
+        private bool spelniaDolnaKwote(int h, int index, int suma, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] p, int[] a)
         {
             int pi = p[index];
             int n = p.Length;
 
             double tmp = Math.Ceiling((double)(suma)/pi * h);
-            int hb = tmp < parlamentSize ? Convert.ToInt32(tmp) : parlamentSize + 1; //+1, bo potem sprawdzamy do <hb, ale tylko w przypadku gdy wartość jest niezmieniona, tj. wartość mianownika/licznik
+            int hb = tmp < this.ParlamentSize ? Convert.ToInt32(tmp) : this.ParlamentSize + 1; //+1, bo potem sprawdzamy do <hb, ale tylko w przypadku gdy wartość jest niezmieniona, tj. wartość mianownika/licznik
 
             int[] s = new int[n];
 
@@ -219,7 +243,7 @@ namespace MOwZProject.Models
         /// <param name="Epi">Suma liczności wszystkich stanów</param>
         /// <param name="ha">Numer aktualnie przydzielanego miejsca w parlamencie</param>
         /// <returns>Wartość dolnej kwoty.</returns>
-        private static int dolnaKwota(double pi, double Epi, double ha)
+        private int dolnaKwota(double pi, double Epi, double ha)
         {
             return Convert.ToInt32(Math.Floor(pi * ha / Epi));
         }
@@ -251,7 +275,7 @@ namespace MOwZProject.Models
         /// </summary>
         /// <param name="a">Przydzielone miejsca dla analizowanego stanu.</param>
         /// <returns>Wartość obliczoną dla kryterium.</returns>
-        private static double hill(int a)
+        private double hill(int a)
         {
             int b = a + 1;
             return Math.Sqrt(b * (b + 1));

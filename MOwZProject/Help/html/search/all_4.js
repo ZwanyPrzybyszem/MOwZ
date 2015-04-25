@@ -9,5 +9,5 @@ var searchData=
   ['dn',['dn',['../jquery-1_810_82_8min_8js.html#ab5e3f3e2b2507b73e2d8092caa5c8650',1,'jquery-1.10.2.min.js']]],
   ['doc',['doc',['../respond_8js.html#a8375eceb3a4b59a36700e7fc468e8983',1,'respond.js']]],
   ['docelem',['docElem',['../respond_8js.html#a5fb2b54cff340aa6e8fb7831cf99ec95',1,'respond.js']]],
-  ['dolnakwota',['DolnaKwota',['../class_m_ow_z_project_1_1_models_1_1_step.html#a706b7812a3e3ee3bd9bbc9e3500ad25c',1,'MOwZProject::Models::Step']]]
+  ['dolnakwota',['dolnaKwota',['../class_m_ow_z_project_1_1_models_1_1_problem.html#a4a49c778fc01ac47fea4e94791b9584d',1,'MOwZProject.Models.Problem.dolnaKwota()'],['../class_m_ow_z_project_1_1_models_1_1_step.html#a706b7812a3e3ee3bd9bbc9e3500ad25c',1,'MOwZProject.Models.Step.DolnaKwota()']]]
 ];

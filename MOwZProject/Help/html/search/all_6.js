@@ -2,8 +2,10 @@ var searchData=
 [
   ['f',['f',['../respond_8min_8js.html#a9cf09a2972472098a4c689fd988f4dfc',1,'f():&#160;respond.min.js'],['../jquery_8validate_8unobtrusive_8min_8js.html#a775508d78fd0500ad5567eb03db78606',1,'f(a):&#160;jquery.validate.unobtrusive.min.js']]],
   ['fileproblem',['FileProblem',['../class_m_ow_z_project_1_1_models_1_1_file_problem.html',1,'MOwZProject::Models']]],
+  ['fileproblem',['FileProblem',['../class_m_ow_z_project_1_1_controllers_1_1_file_problem_controller.html#acf8561fc934c0efd2ddf2cf51b94abde',1,'MOwZProject.Controllers.FileProblemController.FileProblem()'],['../class_m_ow_z_project_1_1_controllers_1_1_file_problem_controller.html#a4b3f7a4525d72eaf8c34b623547bde5d',1,'MOwZProject.Controllers.FileProblemController.FileProblem(FileProblem model)']]],
   ['fileproblem_2ecs',['FileProblem.cs',['../_file_problem_8cs.html',1,'']]],
-  ['fileproblemform',['FileProblemForm',['../class_m_ow_z_project_1_1_controllers_1_1_home_controller.html#a2748ef4b7b3d0e75c9a5e0e1c3ad97f4',1,'MOwZProject.Controllers.HomeController.FileProblemForm()'],['../class_m_ow_z_project_1_1_controllers_1_1_home_controller.html#a8b3abc709f8ec2942aba1b9788b59c24',1,'MOwZProject.Controllers.HomeController.FileProblemForm(FileProblem model)']]],
+  ['fileproblemcontroller',['FileProblemController',['../class_m_ow_z_project_1_1_controllers_1_1_file_problem_controller.html',1,'MOwZProject::Controllers']]],
+  ['fileproblemcontroller_2ecs',['FileProblemController.cs',['../_file_problem_controller_8cs.html',1,'']]],
   ['filewithdata',['FileWithData',['../class_m_ow_z_project_1_1_models_1_1_file_problem.html#a905bce7f85f9690788043c77a572a9a2',1,'MOwZProject::Models::FileProblem']]],
   ['filterconfig',['FilterConfig',['../class_m_ow_z_project_1_1_filter_config.html',1,'MOwZProject']]],
   ['filterconfig_2ecs',['FilterConfig.cs',['../_filter_config_8cs.html',1,'']]],
