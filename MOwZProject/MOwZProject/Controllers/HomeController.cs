@@ -73,10 +73,14 @@ namespace MOwZProject.Controllers
                     {
                         s.id = i;
 
-                        if (s.Name == null || s.Name.Length < 0 ||
-                             s.Size < 1)
+                        if (s.Name == null || s.Name.Length < 0)
                         {
-                            throw new Exception(String.Format("Niepoprawne dane opisujące stany! Uzupełnij nazwę oraz rozmiar stanu (liczba) odpowiednimi danymi!"));
+                            s.Name = (s.id + 1).ToString();
+                        }
+
+                        if (s.Size < 1)
+                        {
+                            throw new Exception(String.Format("Niepoprawne dane opisujące stany! Uzupełnij rozmiar stanu (liczba) odpowiednimi danymi!"));
                         }
                         i++;
 

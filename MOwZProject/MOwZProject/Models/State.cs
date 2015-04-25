@@ -13,7 +13,6 @@ namespace MOwZProject.Models
         public int id { get; set; }
 
         [DisplayName("Nazwa stanu")]
-        [Required(ErrorMessage = "Nazwa stanu jest polem obowiązkowym")]
         public string Name { get; set; }
 
         [DisplayName("Rozmiar stanu")]
