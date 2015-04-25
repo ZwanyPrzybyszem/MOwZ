@@ -10,12 +10,15 @@ using System.Web.UI.HtmlControls;
 
 namespace MOwZProject.Controllers
 {
+    /// <summary>
+    /// Kontroler główny.
+    /// </summary>
     public class HomeController : Controller
     {
         /// <summary>
-        /// GET dla strony głównej
+        /// GET dla strony głównej.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Wynik metody akcji.</returns>
         public ActionResult Index()
         {
             return View();
@@ -24,9 +27,9 @@ namespace MOwZProject.Controllers
 
 
         /// <summary>
-        /// GET dla strony o autorach
+        /// GET dla strony o autorach.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Wynik metody akcji.</returns>
         public ActionResult About()
         {
             return View();
@@ -34,15 +37,12 @@ namespace MOwZProject.Controllers
 
 
 
-
-
-        //TODO zmiana stringa
         /// <summary>
-        /// 
+        /// Metoda tworzy wykres kołowy.
         /// </summary>
-        /// <param name="names">Nazwy stanów</param>
-        /// <param name="places">Liczby przydzielonych mandatów poszczególnym stanom</param>
-        /// <returns></returns>
+        /// <param name="names">Nazwy dla poszczególnych części wykresu (np. nazwy stanów).</param>
+        /// <param name="places">Liczby repreznetujące wielkość poszczególnych częsci wykresu (np. liczba przydzielonych mandatów).</param>
+        /// <returns>Wynik metody akcji.</returns>
         public ActionResult EfficiencyChart(string names, string places)
         {
             Chart chart = new Chart();

@@ -7,13 +7,16 @@ using MOwZProject.Models;
 
 namespace MOwZProject.Controllers
 {
+    /// <summary>
+    /// Kontroler dla problemów z formularza.
+    /// </summary>
     public class ProblemController : Controller
     {
 
         /// <summary>
-        /// GET dla formularza
+        /// GET dla formularza.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Wynik metody akcji.</returns>
         public ActionResult Problem()
         {
             return View(new Problem());
@@ -22,12 +25,12 @@ namespace MOwZProject.Controllers
 
 
         /// <summary>
-        /// 
+        /// Metoda dodaje nowy stan bądź przetwarza problem z formularza.
         /// </summary>
-        /// <param name="Problem">Obiekt reprezentujący problem do przetworzenia</param>
-        /// <param name="add">Zawiera dane, gdy wybrano opcję dodania nowego stanu</param>
-        /// <param name="process">Zawiera dane, gdy wybrano opcję rozwiązania problemu</param>
-        /// <returns></returns>
+        /// <param name="Problem">Obiekt reprezentujący problem do przetworzenia.</param>
+        /// <param name="add">Zawiera dane, gdy wybrano opcję dodania nowego stanu.</param>
+        /// <param name="process">Zawiera dane, gdy wybrano opcję rozwiązania problemu.</param>
+        /// <returns>Wynik metody akcji.</returns>
         [HttpPost]
         public ActionResult Problem(Problem Problem, string add, string process)
         {
@@ -38,11 +41,11 @@ namespace MOwZProject.Controllers
                 {
                     Problem.States.Add(new State() { id = Problem.States.Count });
                 }
-                else
+                else if (process != null)
                 {
                     if (Problem.ParlamentSize < 1)
                     {
-                        throw new Exception(String.Format("Wpisz odpowiednią liczbę miejsc do przydziału! "));
+                        throw new Exception(String.Format("Wpisz odpowiednią liczbę (> 0) miejsc do przydziału!"));
                     }
                     int i = 0;
                     foreach (var s in Problem.States)
@@ -56,7 +59,7 @@ namespace MOwZProject.Controllers
 
                         if (s.Size < 1)
                         {
-                            throw new Exception(String.Format("Niepoprawne dane opisujące stany! Uzupełnij rozmiar stanu (liczba) odpowiednimi danymi!"));
+                            throw new Exception(String.Format("Niepoprawne dane opisujące stany! Uzupełnij rozmiar stanu (liczba > 0) odpowiednimi danymi!"));
                         }
                         i++;
 
