@@ -5,10 +5,14 @@ using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MOwZProject;
-using MOwZProject.Controllers;
+using MOwZProject.Controllers; //do usuniecia!!!!!!!!!!!!!!!
+using MOwZProject.Models;
 
 namespace MOwZProject.Tests.Controllers
 {
+    /// <summary>
+    /// Kontroler do testów.
+    /// </summary>
     [TestClass]
     public class HomeControllerTest
     {
@@ -52,6 +56,56 @@ namespace MOwZProject.Tests.Controllers
             Assert.IsNotNull(result);
         }
         */
+
+
+
+        /// <summary>
+        /// Metoda przetwarza problem.
+        /// </summary>
+        /// <param name="tab">Liczności poszczególnych stanów.</param>
+        /// <param name="size">Rozmiar parlamentu.</param>
+        /// <returns>Problem z wygenerowanymi wynikami.</returns>
+        private Problem check(int[] tab, int size)
+        {
+            Problem p = new Problem();
+            p.ParlamentSize = size;
+            p.States = new List<State>();
+
+
+
+            int i = 0;
+            foreach (int t in tab)
+            {
+                p.States.Add(new State { Name = (i + 1).ToString(), id = i, Mandats = 0, Size = t });
+                i++;
+            }
+
+            p.getStillResult();
+
+            return p;
+        }
+
+
+
+        /// <summary>
+        /// Przykładowy test.
+        /// </summary>
+        [TestMethod]
+        public void StillTestNew()
+        {
+            int[] tab = new int[2] { 10, 5 };
+            int[] res = new int[2] { 2, 1 };
+
+            Problem p = check(tab, 3);
+
+            for (int i =0; i< res.Length; i++)
+            {
+                Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
+            }
+
+        }
+
+
 
         [TestMethod]
         public void Still00()

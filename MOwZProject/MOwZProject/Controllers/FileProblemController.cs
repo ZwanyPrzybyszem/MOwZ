@@ -7,12 +7,15 @@ using MOwZProject.Models;
 
 namespace MOwZProject.Controllers
 {
+    /// <summary>
+    /// Kontroler dla problemów z pliku.
+    /// </summary>
     public class FileProblemController : Controller
     {
         /// <summary>
-        /// GET dla wczytywania pliku
+        /// GET dla wczytywania pliku.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Wynik metody akcji.</returns>
         public ActionResult FileProblem()
         {
             return View(new FileProblem());
@@ -21,10 +24,10 @@ namespace MOwZProject.Controllers
 
 
         /// <summary>
-        /// 
+        /// Metoda odpowiedzialna za przetworzenie pliku z problemem.
         /// </summary>
-        /// <param name="model">Obiekt zawierający zawartość pliku oraz obiekt reprezentujący problem</param>
-        /// <returns></returns>
+        /// <param name="model">Obiekt z zawartością pliku oraz obiekt reprezentujący problem.</param>
+        /// <returns>Wynik metody akcji.</returns>
         [HttpPost]
         public ActionResult FileProblem(FileProblem model)
         {

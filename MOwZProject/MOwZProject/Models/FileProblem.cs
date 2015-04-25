@@ -8,20 +8,33 @@ using System.Web;
 
 namespace MOwZProject.Models
 {
+    /// <summary>
+    /// Klasa reprezentująca dane przetwarzanego problemu, którego źródłem jest plik.
+    /// </summary>
     public class FileProblem
     {
+        /// <summary>
+        /// Plik z danymi dotyczącymi problemu.
+        /// </summary>
         [DataType(DataType.Upload)]
         [Required(ErrorMessage = "Brak pliku!")]
         [DisplayName("Plik z danymi do przetworzenia")]
         [CheckExtensions(".txt")]
         public HttpPostedFileBase FileWithData { get; set; }
 
+
+
+        /// <summary>
+        /// Problem wygenerowany na podstawie danych z pliku.
+        /// </summary>
         public Problem ProblemFromFile { get; set; }
 
 
 
+
+
         /// <summary>
-        /// Przełożenie problemu z pliku do obiektu
+        /// Przełożenie problemu z pliku do obiektu.
         /// </summary>
         public void updateProblem()
         {
@@ -62,16 +75,19 @@ namespace MOwZProject.Models
 
 
     /// <summary>
-    /// Walidacja dotycząca pliku, czy posiada rozszerzenie odpowiednie
+    /// Walidacja dotycząca pliku, czy posiada odpowiednie rozszerzenie.
     /// </summary>
     public class CheckExtensions : ValidationAttribute
     {
+        /// <summary>
+        /// Oczekiwane rozszerzenie.
+        /// </summary>
         public string ext { get; private set; }
 
 
         
         /// <summary>
-        /// Konstruktor
+        /// Konstruktor.
         /// </summary>
         /// <param name="ext">Nazwa oczekiwanego rozszerzenia</param>
         public CheckExtensions(string ext)
@@ -85,8 +101,8 @@ namespace MOwZProject.Models
         /// Sprawdzenie poprawności
         /// </summary>
         /// <param name="value">Przekazana wartość</param>
-        /// <param name="validationContext"></param>
-        /// <returns></returns>
+        /// <param name="validationContext">Kontekst, w którym odbywa się sprawdzanie poprawności.</param>
+        /// <returns>Informacja czy format jest poprawny czy też nie.</returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (value != null && this.ext != Path.GetExtension(((HttpPostedFileBase)value).FileName))
