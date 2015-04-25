@@ -4,27 +4,27 @@
 
 <div class="jumbotron">
     <h1>MOwZ</h1>
-    <p class="lead">Metody Optymalizacji w Zarządzaniu</p>
+    <p class="lead">Aplikacja umożliwia rozwiązanie problemów z wykorzystaniem <br /> algorytmu <b>Stilla z kryterium Hilla</b> lub algorytmu <b>statycznego Liu-Layland'a</b>.</p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Still</h2>
+        <h2>Dane z pliku</h2>
         <p>
-            Rozwiązuje problem przydziału miejsc w parlamencie metodą Stilla z kryterium Hilla.
+            Rozwiązuje problem metodą Stilla z kryterium Hilla lub za pomocą statycznego algorytmu Liu-Layland'a na podstawie danych z pliku tekstowego.
         </p>
         <p><div class="btn btn-primary btn-lg">
-            @Html.ActionLink("Zobacz więcej", "Still", "Home", routeValues: null, htmlAttributes: new { id = "sillLink", style = "color:#ffffff; text-decoration:none" })
+            @Html.ActionLink("Zobacz więcej", "FileProblem", "FileProblem", routeValues: null, htmlAttributes: new { id = "sillLink", style = "color:#ffffff; text-decoration:none" })
             </div></p>
     </div>
     <div class="col-md-4">
-        <h2>Liu-Layland</h2>
+        <h2>Dane z formularza</h2>
         <p>
-            Rozwiązuje problem Liu-Layland'a za pomocą statycznego algorytmu Liu-Layland'a.
+            Rozwiązuje problem metodą Stilla z kryterium Hilla lub za pomocą statycznego algorytmu Liu-Layland'a na podstawie danych wpisanych do formularza.
         </p>
         <p>
             <div class="btn btn-primary btn-lg">
-                @Html.ActionLink("Zobacz więcej", "LiuLayland", "Home", routeValues: null, htmlAttributes: new { id = "liuLink", style = "color:#ffffff; text-decoration:none" })
+                @Html.ActionLink("Zobacz więcej", "Problem", "Problem", routeValues: null, htmlAttributes: new { id = "liuLink", style = "color:#ffffff; text-decoration:none" })
             </div>
         </p>
     </div>
