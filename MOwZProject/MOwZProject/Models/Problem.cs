@@ -80,13 +80,6 @@ namespace MOwZProject.Models
         /// </summary>
         public void getStillResult()
         {
-            
-            int[] a = new int[this.States.Count()];
-
-            for (int i = 0; i < this.States.Count() - 1; i++)
-            {
-                a[i] = 0;
-            }
 
             //ograniczenie do max 50 stanów
             if (this.States.Count > 50)
@@ -94,7 +87,7 @@ namespace MOwZProject.Models
                 throw new Exception("Zbyt duża liczba stanów. (max 50)");
             }
 
-
+            //int to id stanu, double wartosc
             SortedList<int, double> list = new SortedList<int, double>();
             int temp;
 
@@ -106,33 +99,22 @@ namespace MOwZProject.Models
             for (int hi = 1; hi <= this.ParlamentSize; hi++)
             {
 
-                for (int i = 0; i < this.States.Count(); i++)
+                foreach(State s in this.States)
                 {
-                    list.Add(i, this.States.ElementAt(i).Size / hill(a[i]));
-                }
-
-                /////////////////var l = list.OrderByDescending(x => x.Value);
-
-                //z obiektow do listy icznosci
-                int[] p = new int[this.States.Count()];
-
-                for(int no =0; no<this.States.Count(); no++)
-                {
-                    p[no] = this.States.ElementAt(no).Size;
+                    list.Add(s.id, s.Size / hill(s.id));
                 }
 
                 try
                 {
-                    temp = still(p, list.OrderByDescending(x => x.Value), a, hi);
+                    temp = still(list.OrderByDescending(x => x.Value), hi);
 
                     if (temp >= 0)
                     {
                         this.Iterations.Add(temp); //dla danej iteracji komu przydzielono
                         // zwiększenie liczby mandatów
                         this.States.Find(s => s.id == temp).Mandats++;
-                        a[temp]++;
                     }
-                    if (a[temp] > p[temp])//Stan nie może mieć więcej miejsc w parlamencie niż obywateli.
+                    if (this.States.Find(s => s.id == temp).Mandats > this.States.Find(s => s.id == temp).Size)//Stan nie może mieć więcej miejsc w parlamencie niż obywateli.
                     {
                         this.Iterations.Clear();
                         foreach(State s in this.States)
@@ -163,7 +145,7 @@ namespace MOwZProject.Models
         /// <param name="a">Lista przydziałów miejsc do stanów.</param>
         /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie.</param>
         /// <returns>Numer stanu, któremu przydzielono miejsce lub gdy przydział był niemożliwy -1.</returns>
-        private int still(int[] p, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] a, int hi)
+        private int still(IOrderedEnumerable<KeyValuePair<int, double>> list, int hi)
         {
             for (int i = 0; i < list.Count(); i++)
             {
@@ -172,8 +154,8 @@ namespace MOwZProject.Models
                     this.Steps.Add(new Step());
                     this.Steps.Last().Element = this.States.Find(s => s.id == list.ElementAt(i).Key).Name;
                 }
-                if (spelniaGornaKwote(p[list.ElementAt(i).Key], p.Sum(), hi, a[list.ElementAt(i).Key]) &&
-                    spelniaDolnaKwote(hi, list.ElementAt(i).Key, p.Sum(), list, p, a))
+                if (spelniaGornaKwote(hi, list.ElementAt(i).Key) &&
+                    spelniaDolnaKwote(hi, list.ElementAt(i).Key, list))
                 {
                     return list.ElementAt(i).Key;
                 }
@@ -190,44 +172,42 @@ namespace MOwZProject.Models
         /// <summary>
         /// Metoda przeprowadza test dolnej kwoty.
         /// </summary>
-        /// <param name="h">Numer aktualnie przydzielanego miejsca w parlamencie</param>
-        /// <param name="index">Indeks sprawdzanego stanu</param>
+        /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie</param>
+        /// <param name="StateIndex">Indeks sprawdzanego stanu</param>
         /// <param name="suma">Suma liczności wszystkich stanów</param>
         /// <param name="list">Posortowana wg kryterium Hilla sekwencja stanów</param>
         /// <param name="p">Lista liczności stanów</param>
         /// <param name="a">Lista przydziałów miejsc do stanów</param>
         /// <returns>Informacja, czy dany stan spełnia test dolnej kwoty.</returns>
-        private bool spelniaDolnaKwote(int h, int index, int suma, IOrderedEnumerable<KeyValuePair<int, double>> list, int[] p, int[] a)
+        private bool spelniaDolnaKwote(int hi, int StateIndex, IOrderedEnumerable<KeyValuePair<int, double>> list)
         {
-            int pi = p[index];
-            int n = p.Length;
-
-            double tmp = Math.Ceiling((double)(suma)/pi * h);
+            
+            double tmp = Math.Ceiling((double)(this.States.Sum(st => st.Size))/this.States.Find(st => st.id == StateIndex).Size * hi);
             int hb = tmp < this.ParlamentSize ? Convert.ToInt32(tmp) : this.ParlamentSize + 1; //+1, bo potem sprawdzamy do <hb, ale tylko w przypadku gdy wartość jest niezmieniona, tj. wartość mianownika/licznik
 
-            int[] s = new int[n];
+            int[] s = new int[this.States.Count];
 
-            for (int hi = h; hi < hb; hi++)
+            for (int hii = hi; hii < hb; hii++)
             {
-                for (int k = 0; k < n; k++)
+                for (int k = 0; k < this.States.Count; k++)
                 {
-                    if (list.ElementAt(k).Value == index)
+                    if (list.ElementAt(k).Value == StateIndex)
                     {
-                        s[k] = a[list.ElementAt(k).Key] + 1;
+                        s[k] = this.States.Find(st => st.id == list.ElementAt(k).Key).Mandats + 1;
                     }
                     else
                     {
-                        s[k] = Math.Max(a[list.ElementAt(k).Key], dolnaKwota(p[list.ElementAt(k).Key], suma, hi));
+                        s[k] = Math.Max(this.States.Find(st => st.id == list.ElementAt(k).Key).Mandats, dolnaKwota(hii, list.ElementAt(k).Key));
                     }
                 }
 
                 if (this.details)
                 {
-                    this.Steps.Last().DolnaKwota = "(" + s.Sum().ToString() + " ≤ " + hi.ToString() + ") AND (" + s.Sum().ToString() + " < " + hb.ToString() + ")";
-                    this.Steps.Last().SpelniaTestDolnejKwoty = (s.Sum() <= hi && s.Sum() < hb);
+                    this.Steps.Last().DolnaKwota = "(" + s.Sum().ToString() + " ≤ " + hii.ToString() + ") AND (" + s.Sum().ToString() + " < " + hb.ToString() + ")";
+                    this.Steps.Last().SpelniaTestDolnejKwoty = (s.Sum() <= hii && s.Sum() < hb);
                 }
 
-                if (s.Sum() > hi || s.Sum() >= hb)
+                if (s.Sum() > hii || s.Sum() >= hb)
                 {
                     return false;
                 }
@@ -237,7 +217,7 @@ namespace MOwZProject.Models
                 this.Steps.Last().DolnaKwota = "Spełniony, ale nie wiem dlaczego";
                 this.Steps.Last().SpelniaTestDolnejKwoty = true;
             }
-            return true;
+            return true; //DLACZEGO TU JEST TRUE?
         }
 
 
@@ -247,11 +227,12 @@ namespace MOwZProject.Models
         /// </summary>
         /// <param name="pi">Liczność stanu</param>
         /// <param name="Epi">Suma liczności wszystkich stanów</param>
-        /// <param name="ha">Numer aktualnie przydzielanego miejsca w parlamencie</param>
+        /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie</param>
+        /// <param name="StateIndex">Numer identyfikujący analizowany stan.</param>
         /// <returns>Wartość dolnej kwoty.</returns>
-        private int dolnaKwota(double pi, double Epi, double ha)
+        private int dolnaKwota(double hi, int StateIndex)
         {
-            return Convert.ToInt32(Math.Floor(pi * ha / Epi));
+            return Convert.ToInt32(Math.Floor(this.States.Find(s => s.id == StateIndex).Size * hi / this.States.Sum(st => st.Size)));
         }
 
 
@@ -261,17 +242,17 @@ namespace MOwZProject.Models
         /// </summary>
         /// <param name="pi">Liczność stanu</param>
         /// <param name="Epi">Suma liczności wszystkich stanów</param>
-        /// <param name="ha">Numer aktualnie przydzielanego miejsca w parlamencie</param>
+        /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie</param>
         /// <param name="ai">Miejsca przydzielone dla tego stanu.</param>
         /// <returns>Informacja, czy dany stan spełnia test górnej kwoty.</returns>
-        private bool spelniaGornaKwote(double pi, double Epi, int ha, int ai)
+        private bool spelniaGornaKwote(int hi, int StateIndex)
         {
             if (this.details)
             {
-                this.Steps.Last().GornaKwota = "⌈ (" + pi.ToString() + " * " + ha.ToString() + ") / " + Epi.ToString() + " ⌉ >= " + ai.ToString();
-                this.Steps.Last().SpelniaTestGornejKwoty = Math.Ceiling((pi * ha) / Epi) >= ai;
+                this.Steps.Last().GornaKwota = "⌈ (" + this.States.Find(s => s.id == StateIndex).Size.ToString() + " * " + hi.ToString() + ") / " + this.States.Sum(s => s.Size).ToString() + " ⌉ >= " + this.States.Find(s => s.id == StateIndex).Mandats.ToString();
+                this.Steps.Last().SpelniaTestGornejKwoty = Math.Ceiling((this.States.Find(s => s.id == StateIndex).Size * hi) / (double)this.States.Sum(s => s.Size)) >= this.States.Find(s => s.id == StateIndex).Mandats;
             }
-            return Math.Ceiling((pi * ha) / Epi) >= ai;
+            return Math.Ceiling((this.States.Find(s => s.id == StateIndex).Size * hi) / (double)this.States.Sum(s => s.Size)) >= this.States.Find(s => s.id == StateIndex).Mandats;
         }
 
 
@@ -281,9 +262,9 @@ namespace MOwZProject.Models
         /// </summary>
         /// <param name="a">Przydzielone miejsca dla analizowanego stanu.</param>
         /// <returns>Wartość obliczoną dla kryterium.</returns>
-        private double hill(int a)
+        private double hill(int StateIndex)
         {
-            int b = a + 1;
+            int b = this.States.Find(s => s.id == StateIndex).Mandats + 1;
             return Math.Sqrt(b * (b + 1));
         }
 
