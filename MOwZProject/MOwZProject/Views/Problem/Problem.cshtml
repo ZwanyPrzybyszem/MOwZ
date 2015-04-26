@@ -1,4 +1,5 @@
 ﻿@model MOwZProject.Models.Problem
+@using MOwZProject.Models;
 
 @{
     ViewBag.Title = "Algorytm Stilla (kryterium Hilla)";
@@ -79,7 +80,7 @@
     //TODO zmiana parametru przy tworzeniu wykresu
     string n = string.Join(" ", Model.States.Select(s => s.Name).ToArray());
     string p = string.Join(" ", Model.States.Select(s => s.Mandats).ToArray());
-    <img src="@Url.Action("EfficiencyChart", "Home", new { names = @n , places = @p })" />
+    <img src="@Url.Action("EfficiencyChart", "Problem", new { names = @n, places = @p })" />
 
     <br />
 
