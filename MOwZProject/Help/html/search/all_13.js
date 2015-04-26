@@ -10,8 +10,8 @@ var searchData=
   ['sn',['sn',['../jquery-1_810_82_8min_8js.html#abccbe99209ac0b8dff41f1baddfc4d70',1,'jquery-1.10.2.min.js']]],
   ['speed',['speed',['../jquery-1_810_82_8js.html#add98c90065e6563cba26ff6d2016c46c',1,'jquery-1.10.2.js']]],
   ['speeds',['speeds',['../jquery-1_810_82_8js.html#a1079544ab08b6d4ca1692ce090f6ea2d',1,'jquery-1.10.2.js']]],
-  ['spelniadolnakwote',['spelniaDolnaKwote',['../class_m_ow_z_project_1_1_models_1_1_problem.html#a7da48a28357cb201e68a2c91e32e1cfa',1,'MOwZProject::Models::Problem']]],
-  ['spelniagornakwote',['spelniaGornaKwote',['../class_m_ow_z_project_1_1_models_1_1_problem.html#aa941d0be5e517e9db25c9442f70e0ed1',1,'MOwZProject::Models::Problem']]],
+  ['spelniadolnakwote',['spelniaDolnaKwote',['../class_m_ow_z_project_1_1_models_1_1_problem.html#aa9d8599f62828cc8b474975976b238be',1,'MOwZProject::Models::Problem']]],
+  ['spelniagornakwote',['spelniaGornaKwote',['../class_m_ow_z_project_1_1_models_1_1_problem.html#ab265265fac8fd54b88dbae1fa1750c68',1,'MOwZProject::Models::Problem']]],
   ['spelniatestdolnejkwoty',['SpelniaTestDolnejKwoty',['../class_m_ow_z_project_1_1_models_1_1_step.html#a9e3ebc1541c72e35d053fead8a282174',1,'MOwZProject::Models::Step']]],
   ['spelniatestgornejkwoty',['SpelniaTestGornejKwoty',['../class_m_ow_z_project_1_1_models_1_1_step.html#aaf215271430665d533cdd7bca9c7b921',1,'MOwZProject::Models::Step']]],
   ['splitandtrim',['splitAndTrim',['../jquery_8validate_8unobtrusive_8js.html#ae8b65fcf53d868b5efa72181c8fe5288',1,'jquery.validate.unobtrusive.js']]],
@@ -23,6 +23,6 @@ var searchData=
   ['step',['step',['../jquery-1_810_82_8js.html#a7337229078e935a813e7e0f674fad739',1,'jquery-1.10.2.js']]],
   ['step_2ecs',['Step.cs',['../_step_8cs.html',1,'']]],
   ['steps',['Steps',['../class_m_ow_z_project_1_1_models_1_1_problem.html#aa1a2922a8b960142fa47e0d2b6c2ec99',1,'MOwZProject::Models::Problem']]],
-  ['still',['still',['../class_m_ow_z_project_1_1_models_1_1_problem.html#aef00c113c5c885585a0dadb800c6eeda',1,'MOwZProject::Models::Problem']]],
+  ['still',['still',['../class_m_ow_z_project_1_1_models_1_1_problem.html#a0d9efa7b84d79c312b9bc60861a9a804',1,'MOwZProject::Models::Problem']]],
   ['stop',['stop',['../jquery-1_810_82_8js.html#ac9a544302040b74e845b33c285cd10e7',1,'jquery-1.10.2.js']]]
 ];

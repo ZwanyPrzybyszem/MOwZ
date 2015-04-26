@@ -69,12 +69,6 @@ namespace MOwZProject.Models
 
 
 
-        /////////////////////////////////////////////////////////////////////////
-        /////// WSZYSTKO PONIZEJ DO ZMIANY ZEBY DZIALALO NA OBIEKCIE ////////////
-        /////////////////////////////////////////////////////////////////////////
-
-
-
         /// <summary>
         /// Rozwiązuje problem metodą Stilla z kryterium Hilla.
         /// </summary>
@@ -140,9 +134,7 @@ namespace MOwZProject.Models
         /// <summary>
         /// Wyznaczenie stanu który otrzyma kolejne miejsce w parlamencie.
         /// </summary>
-        /// <param name="p">Lista liczności stanów.</param>
         /// <param name="list">Posortowana wg kryterium Hilla sekwencja stanów.</param>
-        /// <param name="a">Lista przydziałów miejsc do stanów.</param>
         /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie.</param>
         /// <returns>Numer stanu, któremu przydzielono miejsce lub gdy przydział był niemożliwy -1.</returns>
         private int still(IOrderedEnumerable<KeyValuePair<int, double>> list, int hi)
@@ -174,10 +166,7 @@ namespace MOwZProject.Models
         /// </summary>
         /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie</param>
         /// <param name="StateIndex">Indeks sprawdzanego stanu</param>
-        /// <param name="suma">Suma liczności wszystkich stanów</param>
         /// <param name="list">Posortowana wg kryterium Hilla sekwencja stanów</param>
-        /// <param name="p">Lista liczności stanów</param>
-        /// <param name="a">Lista przydziałów miejsc do stanów</param>
         /// <returns>Informacja, czy dany stan spełnia test dolnej kwoty.</returns>
         private bool spelniaDolnaKwote(int hi, int StateIndex, IOrderedEnumerable<KeyValuePair<int, double>> list)
         {
@@ -225,8 +214,6 @@ namespace MOwZProject.Models
         /// <summary>
         /// Metoda oblicza wartość dolnej kwoty.
         /// </summary>
-        /// <param name="pi">Liczność stanu</param>
-        /// <param name="Epi">Suma liczności wszystkich stanów</param>
         /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie</param>
         /// <param name="StateIndex">Numer identyfikujący analizowany stan.</param>
         /// <returns>Wartość dolnej kwoty.</returns>
@@ -240,10 +227,8 @@ namespace MOwZProject.Models
         /// <summary>
         /// Metoda przeprowadza test górnej kwoty dla stanu.
         /// </summary>
-        /// <param name="pi">Liczność stanu</param>
-        /// <param name="Epi">Suma liczności wszystkich stanów</param>
         /// <param name="hi">Numer aktualnie przydzielanego miejsca w parlamencie</param>
-        /// <param name="ai">Miejsca przydzielone dla tego stanu.</param>
+        /// <param name="StateIndex">Numer id analizowanego stanu.</param>
         /// <returns>Informacja, czy dany stan spełnia test górnej kwoty.</returns>
         private bool spelniaGornaKwote(int hi, int StateIndex)
         {
@@ -260,8 +245,8 @@ namespace MOwZProject.Models
         /// <summary>
         /// Metoda oblicza wartość dla kryterium Hilla.
         /// </summary>
-        /// <param name="a">Przydzielone miejsca dla analizowanego stanu.</param>
-        /// <returns>Wartość obliczoną dla kryterium.</returns>
+        /// <param name="StateIndex">Numer id analizowanego stanu.</param>
+        /// <returns>Wartość obliczona dla kryterium.</returns>
         private double hill(int StateIndex)
         {
             int b = this.States.Find(s => s.id == StateIndex).Mandats + 1;
