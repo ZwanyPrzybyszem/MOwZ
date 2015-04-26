@@ -42,7 +42,7 @@
     //TODO zmiana parametru przy tworzeniu wykresu
     string n = string.Join(" ", Model.ProblemFromFile.States.Select(s => s.Name).ToArray());
     string p = string.Join(" ", Model.ProblemFromFile.States.Select(s => s.Mandats).ToArray());
-    <img src="@Url.Action("EfficiencyChart", "Home", new { names = @n , places = @p })" />
+    <img src="@Url.Action("EfficiencyChart", "Problem", new { names = @n , places = @p })" />
 
     <br />
 

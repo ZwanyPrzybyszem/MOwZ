@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MOwZProject.Models;
+using System.Web.UI.DataVisualization.Charting;
+using System.IO;
 
 namespace MOwZProject.Controllers
 {
@@ -74,6 +76,34 @@ namespace MOwZProject.Controllers
             return View(Problem);
         }
 
+
+
+        /// <summary>
+        /// Metoda tworzy wykres kołowy.
+        /// </summary>
+        /// <param name="names">Nazwy dla poszczególnych części wykresu (np. nazwy stanów).</param>
+        /// <param name="places">Liczby repreznetujące wielkość poszczególnych częsci wykresu (np. liczba przydzielonych mandatów).</param>
+        /// <returns>Wynik metody akcji.</returns>
+        public ActionResult EfficiencyChart(string names, string places)
+        {
+            Chart chart = new Chart();
+            chart.ChartAreas.Add(new ChartArea());
+
+            chart.Series.Add(new Series("Data"));
+            chart.Series["Data"].ChartType = SeriesChartType.Pie;
+            chart.Series["Data"]["PieLabelStyle"] = "Outside";
+            chart.Series["Data"]["PieLineColor"] = "Black";
+            chart.Series["Data"].Points.DataBindXY(
+                names.Split(' '),
+                Array.ConvertAll(places.Split(' '), Int32.Parse));
+
+            chart.ChartAreas[0].Area3DStyle.Enable3D = true;
+
+            MemoryStream ms = new MemoryStream();
+            chart.SaveImage(ms, ChartImageFormat.Png);
+            return File(ms.ToArray(), "image/png");
+
+        }
 
 
     }
