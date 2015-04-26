@@ -101,7 +101,10 @@ namespace MOwZProject.Models
                 try
                 {
                     temp = still(list.OrderByDescending(x => x.Value), hi);
-
+                    if (temp < 0)
+                    {
+                        throw new Exception(String.Format("Nie da się przydzielić {0} miejsca w parlamencie", hi));
+                    }
                     if (temp >= 0)
                     {
                         this.Iterations.Add(temp); //dla danej iteracji komu przydzielono
@@ -207,6 +210,10 @@ namespace MOwZProject.Models
                 this.Steps.Last().SpelniaTestDolnejKwoty = true;
             }
             return true; //DLACZEGO TU JEST TRUE?
+            //Bo gdyby nie spelnial to by wyszedl wczesniej, tam gdzie return false;
+            //Jesli dochodzi do tego miejsca tzn, ze spelnia test dolnej kwoty i powinien zwrocic true.
+            //A wtedy to nie dzialalo, bo zly warunek w petli zrobilem (nie przechodzilo przez wszystkie konieczne wartosci)
+            //btw ERROR:Odwołanie do obiektu nie zostało ustawione na wystąpienie obiektu. Taki blad nic mi nie mowi xD
         }
 
 
