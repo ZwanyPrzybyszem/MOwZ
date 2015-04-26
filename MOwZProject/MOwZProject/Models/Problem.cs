@@ -88,6 +88,12 @@ namespace MOwZProject.Models
                 a[i] = 0;
             }
 
+            //ograniczenie do max 50 stanów
+            if (this.States.Count > 50)
+            {
+                throw new Exception("Zbyt duża liczba stanów. (max 50)");
+            }
+
 
             SortedList<int, double> list = new SortedList<int, double>();
             int temp;
