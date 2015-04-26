@@ -102,134 +102,143 @@ namespace MOwZProject.Tests.Controllers
             {
                 Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
             }
-
         }
-
-
 
         [TestMethod]
         public void Still00()
         {
+            int[] tab = new int[2] { 5, 5 };
+            int[] res = new int[2] { 1, 1 };
 
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
-            List<int> result = (List<int>)privateObject.Invoke("getResult", 2, 2, new int[2] { 5, 5 });
-            List<int> temp = new List<int> { 0, 1 };
+            Problem p = check(tab, 2);
 
-            Assert.AreEqual(result.ElementAt(1), temp.ElementAt(1));
+            for (int i = 0; i < res.Length; i++)
+            {
+                Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
+            }
         }
 
         [TestMethod]
         public void Still01()
         {
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
-            List<int> result = (List<int>)privateObject.Invoke("getResult", 3, 5, new int[3] { 7270, 1230, 2220 });
-            List<int> temp = new List<int> { 0, 0 , 0, 0, 2 };
+            int[] tab = new int[3] { 7270, 1230, 2220 };
+            int[] res = new int[3] { 4, 0, 1 };
 
-            for (int i = 0; i < temp.Count; i++)
+            Problem p = check(tab, 5);
+
+            for (int i = 0; i < res.Length; i++)
             {
-                Assert.AreEqual(result.ElementAt(i), temp.ElementAt(i));
+                Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
             }
         }
 
         [TestMethod]
         public void Still02()
         {
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
-            List<int> result = (List<int>)privateObject.Invoke("getResult", 7, 15, new int[7] { 1850, 2560, 6000, 4342, 1849, 2341, 5555 });
-            List<int> temp = new List<int> { 2, 6, 3, 2, 6, 1, 3, 2, 5, 6, 2, 0, 4, 3, 6 };
+            int[] tab = new int[7] { 1850, 2560, 6000, 4342, 1849, 2341, 5555 };
+            int[] res = new int[7] { 1, 1, 4, 3, 1, 1, 4 };
 
-            for (int i = 0; i < temp.Count; i++)
+            Problem p = check(tab, 15);
+
+            for (int i = 0; i < res.Length; i++)
             {
-                Assert.AreEqual(result.ElementAt(i), temp.ElementAt(i));
+                Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
             }
         }
 
         [TestMethod]
         public void Still03()
         {
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
-            List<int> result = (List<int>)privateObject.Invoke("getResult", 3, 10, new int[3] { 500, 1500, 1500 });
-            List<int> temp = new List<int> { 1, 2, 1, 2, 1, 2, 0, 1, 2, 1 };
+            int[] tab = new int[3] { 500, 1500, 1500 };
+            int[] res = new int[3] { 1, 5, 4 };
 
-            for (int i = 0; i < temp.Count; i++)
+            Problem p = check(tab, 10);
+
+            for (int i = 0; i < res.Length; i++)
             {
-                Assert.AreEqual(result.ElementAt(i), temp.ElementAt(i));
+                Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
             }
         }
 
         [TestMethod]
         public void Still04()
         {
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
-            try 
-            { 
-                List<int> result = (List<int>)privateObject.Invoke("getResult", 5, 5, new int[5] { 0, 0, 10, 0, 0 });
+            int[] tab = new int[5] { 0, 0, 10, 0, 0 };
+            int[] res = new int[5] { -1, -1, -1, -1, -1 };
+
+            try { 
+                Problem p = check(tab, 5);
+
+                for (int i = 0; i < res.Length; i++)
+                {
+                    Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
+                }
                 Assert.Fail();
             }
             catch (Exception) { }
-            
         }
 
         [TestMethod]
         public void Still05()
         {   //Pytanie, czy można przydzielić więcej mandatów niż obywateli w stanie?
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
+            int[] tab = new int[1] { 1 };
+            int[] res = new int[1] { 2 };
+
             try
             {
-                List<int> result = (List<int>)privateObject.Invoke("getResult", 1, 2, new int[1] { 1 });
+                Problem p = check(tab, 2);
+
+                for (int i = 0; i < res.Length; i++)
+                {
+                    Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
+                }
                 Assert.Fail();
             }
             catch (Exception) { }
-            /*List<int> temp = new List<int> { 0, 0 };
-
-            for (int i = 0; i < temp.Count; i++)
-            {
-                Assert.AreEqual(result.ElementAt(i), temp.ElementAt(i));
-            }*/
         }
 
         [TestMethod]
         public void Still06()
         {
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
-            List<int> result = (List<int>)privateObject.Invoke("getResult", 5, 2, new int[5] { 2, 2, 2, 3, 2 });
-            List<int> temp = new List<int> { 3, 0 };
+            int[] tab = new int[5] { 2, 2, 2, 3, 2 };
+            int[] res = new int[5] { 1, 0, 0, 1, 0 };
 
-            for (int i = 0; i < temp.Count; i++)
+            Problem p = check(tab, 2);
+
+            for (int i = 0; i < res.Length; i++)
             {
-                Assert.AreEqual(result.ElementAt(i), temp.ElementAt(i));
+                Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
             }
         }
 
         [TestMethod]
         public void Still07()
         {
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
-            List<int> result = (List<int>)privateObject.Invoke("getResult", 5, 5, new int[5] { 1, 2, 1, 1, 4 });
-            List<int> temp = new List<int> { 4, 4, 1, 4, 4 };
+            int[] tab = new int[5] { 1, 2, 1, 1, 4 };
+            int[] res = new int[5] { 0, 1, 0, 0, 4 };
 
-            for (int i = 0; i < temp.Count; i++)
+            Problem p = check(tab, 5);
+
+            for (int i = 0; i < res.Length; i++)
             {
-                Assert.AreEqual(result.ElementAt(i), temp.ElementAt(i));
+                Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
             }
         }
 
         [TestMethod]
         public void Still08()
         {
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
-            try 
-            { 
-                List<int> result = (List<int>)privateObject.Invoke("getResult", 16, 100, new int[16] { 2914362, 2096404, 2165651, 1023317, 2524651, 3354077, 5301760, 1010203, 2129951, 1198690, 2290070, 4615870, 1273995, 1450697, 3462196, 1721405 });
+            int[] tab = new int[16] { 2914362, 2096404, 2165651, 1023317, 2524651, 3354077, 5301760, 1010203, 2129951, 1198690, 2290070, 4615870, 1273995, 1450697, 3462196, 1721405 };
+            int[] res = new int[16] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, };
+            
+            try
+            {
+                Problem p = check(tab, 100);
+
+                for (int i = 0; i < res.Length; i++)
+                {
+                    Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
+                }
                 Assert.Fail();
             }
             catch (Exception) { }
@@ -238,28 +247,28 @@ namespace MOwZProject.Tests.Controllers
         [TestMethod]
         public void Still09()
         {
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
-            List<int> result = (List<int>)privateObject.Invoke("getResult", 9, 5, new int[9] { 1250, 1000, 750, 1500, 1750, 2000, 500, 1500, 1000 });
-            List<int> temp = new List<int> { 5, 4, 3, 7, 0 };
+            int[] tab = new int[9] { 1250, 1000, 750, 1500, 1750, 2000, 500, 1500, 1000 };
+            int[] res = new int[9] { 1, 0, 0, 1, 1, 1, 0, 1, 0 };
 
-            for (int i = 0; i < temp.Count; i++)
+            Problem p = check(tab, 5);
+
+            for (int i = 0; i < res.Length; i++)
             {
-                Assert.AreEqual(result.ElementAt(i), temp.ElementAt(i));
+                Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
             }
         }
 
         [TestMethod]
         public void Still10()
         {
-            HomeController controller = new HomeController();
-            var privateObject = new PrivateObject(controller);
-            List<int> result = (List<int>)privateObject.Invoke("getResult", 12, 4, new int[12] { 25, 10, 75, 15, 17, 20, 50, 50, 10, 40, 30, 20 });
-            List<int> temp = new List<int> { 2, 6, 7, 2 };
+            int[] tab = new int[12] { 25, 10, 75, 15, 17, 20, 50, 50, 10, 40, 30, 20 };
+            int[] res = new int[12] { 0, 0, 2, 0, 0, 0, 1, 1, 0, 0, 0, 0 };
 
-            for (int i = 0; i < temp.Count; i++)
+            Problem p = check(tab, 4);
+
+            for (int i = 0; i < res.Length; i++)
             {
-                Assert.AreEqual(result.ElementAt(i), temp.ElementAt(i));
+                Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
             }
         }
 
