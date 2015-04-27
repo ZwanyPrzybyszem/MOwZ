@@ -16,10 +16,9 @@ namespace MOwZProject.Models
         /// Lista rozważanych stanów.
         /// </summary>
         [DisplayName("Rozważane stany")]
-        [Required(ErrorMessage="Konieczne jest podanie stanów!")]
-        public List<State> States { get; set; }
+        [Required(ErrorMessage = "Konieczne jest podanie stanów!")]
+        public List<State> States { get; private set; }
         
-
 
         /// <summary>
         /// Rozmiar parlamentu.
@@ -28,13 +27,12 @@ namespace MOwZProject.Models
         [Required(ErrorMessage = "Wielkość parlamentu jest polem obowiązkowym")]
         [Range(0, int.MaxValue, ErrorMessage = "Wpisz liczbę z odpowiedniego przedziału")]
         public int ParlamentSize { get; set; }
-        
 
 
         /// <summary>
         /// Lista zawierająca przydziały w kolejnych iteracjach.
         /// </summary>
-        public List<int> Iterations {get; set; }
+        public List<int> Iterations { get; private set; }
 
 
 
@@ -42,14 +40,14 @@ namespace MOwZProject.Models
         /// Informacja czy szczegóły mają być wyświetlane.
         /// </summary>
         [DisplayName("Wyświetl szczegóły przetwarzania")]
-        public bool details { get; set; }
+        public bool details { get; private set; }
 
 
 
         /// <summary>
         /// Lista zawierająca szczegóły kolejnych kroków.
         /// </summary>
-        public List<Step> Steps { get; set; }
+        public List<Step> Steps { get; private set; }
 
 
 

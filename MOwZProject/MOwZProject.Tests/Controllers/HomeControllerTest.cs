@@ -69,7 +69,6 @@ namespace MOwZProject.Tests.Controllers
         {
             Problem p = new Problem();
             p.ParlamentSize = size;
-            p.States = new List<State>();
 
 
 

@@ -24,6 +24,7 @@ namespace MOwZProject.Models
         /// Nazwa stanu.
         /// </summary>
         [DisplayName("Nazwa stanu")]
+        [MaxLength(20)]
         public string Name { get; set; }
 
 

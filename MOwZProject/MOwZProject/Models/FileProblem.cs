@@ -43,10 +43,30 @@ namespace MOwZProject.Models
 
             using (StreamReader reader = new StreamReader(this.FileWithData.InputStream))
             {
-                //LiczbaStanow LiczbaMandatowDoPrzydzialu
-                words = Array.ConvertAll(reader.ReadLine().Split(new Char[] { ' ', '\t' }), Int32.Parse);
-                //Licznosc1Stanu Licznosc2Stanu ...
-                p = Array.ConvertAll(reader.ReadLine().Split(new Char[] { ' ', '\t' }), Int32.Parse);
+
+
+                try
+                {
+                    //LiczbaStanow LiczbaMandatowDoPrzydzialu
+                    words = Array.ConvertAll(reader.ReadLine().Split(new Char[] { ' ', '\t' }), Int32.Parse);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Niepoprawne dane w pliku");
+                }
+                if (words[0] > 50)
+                {
+                    throw new Exception("Zbyt duża liczba stanów");
+                }
+                try
+                {
+                    //Licznosc1Stanu Licznosc2Stanu ...
+                    p = Array.ConvertAll(reader.ReadLine().Split(new Char[] { ' ', '\t' }), Int32.Parse);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Brak poprawnych danych wejściowych dotyczących stanów");
+                }
                 //this.FileWithData.InputStream.Position = 0;
                 reader.BaseStream.Position = 0;
                 reader.Close();
@@ -58,7 +78,7 @@ namespace MOwZProject.Models
                 //this.ProblemFromFile = new Problem();
                 this.ProblemFromFile.ParlamentSize = words[1];
                 this.ProblemFromFile.States.Clear();
-          
+
 
                 for (int i = 0; i < p.Length; i++)
                 {
@@ -85,7 +105,7 @@ namespace MOwZProject.Models
         public string ext { get; private set; }
 
 
-        
+
         /// <summary>
         /// Konstruktor.
         /// </summary>

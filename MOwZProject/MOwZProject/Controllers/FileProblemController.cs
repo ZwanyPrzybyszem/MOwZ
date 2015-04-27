@@ -31,8 +31,13 @@ namespace MOwZProject.Controllers
         [HttpPost]
         public ActionResult FileProblem(FileProblem model)
         {
+           
             try
             {
+                if (model.FileWithData == null)
+                {
+                    throw new Exception("Brak pliku!");
+                }
                 model.updateProblem();
                 model.ProblemFromFile.getStillResult();
             }
