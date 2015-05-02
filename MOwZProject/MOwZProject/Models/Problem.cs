@@ -209,11 +209,7 @@ namespace MOwZProject.Models
                 this.Steps.Last().DolnaKwota = "Spełniony, ale nie wiem dlaczego";
                 this.Steps.Last().SpelniaTestDolnejKwoty = true;
             }
-            return true; //DLACZEGO TU JEST TRUE?
-            //Bo gdyby nie spelnial to by wyszedl wczesniej, tam gdzie return false;
-            //Jesli dochodzi do tego miejsca tzn, ze spelnia test dolnej kwoty i powinien zwrocic true.
-            //A wtedy to nie dzialalo, bo zly warunek w petli zrobilem (nie przechodzilo przez wszystkie konieczne wartosci)
-            //btw ERROR:Odwołanie do obiektu nie zostało ustawione na wystąpienie obiektu. Taki blad nic mi nie mowi xD
+            return true;
         }
 
 

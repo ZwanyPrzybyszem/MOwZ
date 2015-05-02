@@ -126,6 +126,7 @@
     <Compile Include="Models\ProblemLiu.cs" />
     <Compile Include="Models\Problem.cs" />
     <Compile Include="Models\State.cs" />
+    <Compile Include="Models\Iteration.cs" />
     <Compile Include="Models\StepLiu.cs" />
     <Compile Include="Models\Step.cs" />
     <Compile Include="Models\Task.cs" />
@@ -168,6 +169,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\FileProblem\FileProblem.cshtml" />
     <Content Include="Views\Problem\Problem.cshtml" />
+    <Content Include="Views\Problem\ProblemLiu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,8 +1,6 @@
-﻿@model MOwZProject.Models.Problem
-@using MOwZProject.Models;
-
+﻿@model MOwZProject.Models.ProblemLiu
 @{
-    ViewBag.Title = "Algorytm Stilla (kryterium Hilla)";
+    ViewBag.Title = "Algorytm statyczny Liu-Laylanda";
 }
 
 
@@ -17,10 +15,10 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.ParlamentSize, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NumberOfUnits, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ParlamentSize, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ParlamentSize, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.NumberOfUnits, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumberOfUnits, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -29,26 +27,25 @@
         <table>
             <tr>
                 <th>
-
                 </th>
                 <th>
-                    @Html.LabelFor(m => m.States[0].Name)
+                    @Html.LabelFor(m => m.Tasks[0].Duration)
                 </th>
                 <th>
-                    @Html.LabelFor(m => m.States[0].Size)
+                    @Html.LabelFor(m => m.Tasks[0].Period)
                 </th>
             </tr>
-            @for (int i = 0; i < Model.States.Count(); i++)
+            @for (int i = 0; i < Model.Tasks.Count(); i++)
             {
                 <tr>
                     <th>
-                        @(i + 1)
+                        @Html.DisplayFor(m => m.Tasks[i].Id)
                     </th>
                     <th>
-                        @Html.TextBoxFor(m => m.States[i].Name)
+                        @Html.TextBoxFor(m => m.Tasks[i].Duration)
                     </th>
                     <th>
-                        @Html.TextBoxFor(m => m.States[i].Size)
+                        @Html.TextBoxFor(m => m.Tasks[i].Period)
                     </th>
                 </tr>
             }
@@ -77,37 +74,39 @@
     <br />
     <br />
 
-    string n = string.Join(" ", Model.States.Select(s => s.Name).ToArray());
-    string p = string.Join(" ", Model.States.Select(s => s.Mandats).ToArray());
-    <img src="@Url.Action("EfficiencyChart", "Problem", new { names = @n, places = @p })" />
+    string tasks = string.Join(" ", Model.Iterations.Select(s => s.Task.Id).ToArray());
+    string starts = string.Join(" ", Model.Iterations.Select(s => s.Start).ToArray());
+    string stops = string.Join(" ", Model.Iterations.Select(s => s.Stop).ToArray());
+    
+    <img src="@Url.Action("GanttChart", "Problem", new { tasks = @tasks, starts = @starts, stops = @stops })" />
 
     <br />
 
-    <p>Liczba przydzielanych miejsc: <b>@Html.DisplayFor(model => model.ParlamentSize)</b> </p>
+    <p>Liczba przydzielanych jednstek czasu: <b>@Html.DisplayFor(model => model.NumberOfUnits)</b> </p>
 
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.States.First().Name)
+                @Html.DisplayNameFor(model => model.Iterations.First().Task.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.States.First().Size)
+                @Html.DisplayNameFor(model => model.Iterations.First().Start)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.States.First().Mandats)
+                @Html.DisplayNameFor(model => model.Iterations.First().Stop)
             </th>
         </tr>
-        @foreach (var item in Model.States)
+        @foreach (var item in Model.Iterations)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Task.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Size)
+                    @Html.DisplayFor(modelItem => item.Start)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Mandats)
+                    @Html.DisplayFor(modelItem => item.Stop)
                 </td>
             </tr>
 
@@ -117,7 +116,10 @@
 
 
 
-        if (Model.details && Model.Steps != null)
+
+        //TODO wyświetlanie szczegółów
+        /*
+        if (Model.details && Model.StepsLiu != null)
         {
 
             <p>Kroki algorytmu: </p>
@@ -170,6 +172,7 @@
 
             </table>
         }
+         * */
 }
 
 

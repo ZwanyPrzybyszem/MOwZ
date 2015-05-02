@@ -42,7 +42,14 @@ namespace MOwZProject.Models
         /// <summary>
         /// Lista zawierająca szczegóły kolejnych kroków.
         /// </summary>
-        public List<StepLiu> StepsLiu { get; protected set; }
+        public List<StepLiu> StepsLiu { get; private set; }
+
+
+
+        /// <summary>
+        /// Lista zawierająca dane dotyczące kolejnych uszeregowań.
+        /// </summary>
+        public List<Iteration> Iterations { get; private set; }
 
 
 
@@ -66,10 +73,12 @@ namespace MOwZProject.Models
         /// </summary>
         public void getLiuResult()
         {
+            this.Iterations = new List<Iteration>();
             int actualPosition = 0;
             foreach (Task t in this.Tasks)
             {
-                this.StepsLiu.Add(new StepLiu(t, actualPosition, actualPosition + t.Duration));
+                this.Iterations.Add(new Iteration(t, actualPosition, actualPosition + t.Duration));
+                actualPosition = actualPosition + t.Duration;
             }
             
         }
