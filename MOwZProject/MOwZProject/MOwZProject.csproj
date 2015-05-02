@@ -170,6 +170,7 @@
     <Content Include="Views\FileProblem\FileProblem.cshtml" />
     <Content Include="Views\Problem\Problem.cshtml" />
     <Content Include="Views\Problem\ProblemLiu.cshtml" />
+    <Content Include="Views\FileProblem\FileProblemLiu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

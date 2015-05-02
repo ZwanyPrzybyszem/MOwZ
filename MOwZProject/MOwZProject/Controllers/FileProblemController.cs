@@ -47,6 +47,42 @@ namespace MOwZProject.Controllers
             }
             return View(model);
         }
+
+        /// <summary>
+        /// GET dla wczytywania pliku.
+        /// </summary>
+        /// <returns>Wynik metody akcji.</returns>
+        public ActionResult FileProblemLiu()
+        {
+            return View(new FileProblemLiu());
+        }
+
+
+
+        /// <summary>
+        /// Metoda odpowiedzialna za przetworzenie pliku z problemem.
+        /// </summary>
+        /// <param name="model">Obiekt z zawartością pliku oraz obiekt reprezentujący problem.</param>
+        /// <returns>Wynik metody akcji.</returns>
+        [HttpPost]
+        public ActionResult FileProblemLiu(FileProblemLiu model)
+        {
+
+            try
+            {
+                if (model.FileWithData == null)
+                {
+                    throw new Exception("Brak pliku!");
+                }
+                model.updateProblem();
+                model.ProblemFromFile.getLiuResult();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "ERROR:" + ex.Message.ToString();
+            }
+            return View(model);
+        }
         
     }
 }
