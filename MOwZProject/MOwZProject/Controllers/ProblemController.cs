@@ -41,7 +41,7 @@ namespace MOwZProject.Controllers
                 ViewBag.Message = "";
                 if (add != null)
                 {
-                    Problem.States.Add(new State() { id = Problem.States.Count });
+                    Problem.States.Add(new State() { Id = Problem.States.Count });
                 }
                 else if (process != null)
                 {
@@ -52,11 +52,11 @@ namespace MOwZProject.Controllers
                     int i = 0;
                     foreach (var s in Problem.States)
                     {
-                        s.id = i;
+                        s.Id = i;
 
                         if (s.Name == null || s.Name.Length < 0)
                         {
-                            s.Name = (s.id + 1).ToString();
+                            s.Name = (s.Id + 1).ToString();
                         }
 
                         if (s.Size < 1)

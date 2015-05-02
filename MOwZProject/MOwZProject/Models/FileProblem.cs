@@ -19,7 +19,7 @@ namespace MOwZProject.Models
         [DataType(DataType.Upload)]
         [Required(ErrorMessage = "Brak pliku!")]
         [DisplayName("Plik z danymi do przetworzenia")]
-        [CheckExtensions(".txt")]
+        [CheckExtensionsValidationAttribute(".txt")]
         public HttpPostedFileBase FileWithData { get; set; }
 
 
@@ -82,7 +82,7 @@ namespace MOwZProject.Models
 
                 for (int i = 0; i < p.Length; i++)
                 {
-                    this.ProblemFromFile.States.Add(new State { id = i, Mandats = 0, Name = (i + 1).ToString(), Size = p[i] });
+                    this.ProblemFromFile.States.Add(new State { Id = i, Mandats = 0, Name = (i + 1).ToString(), Size = p[i] });
                 }
             }
             else
@@ -94,43 +94,6 @@ namespace MOwZProject.Models
 
 
 
-    /// <summary>
-    /// Walidacja dotycząca pliku, czy posiada odpowiednie rozszerzenie.
-    /// </summary>
-    public class CheckExtensions : ValidationAttribute
-    {
-        /// <summary>
-        /// Oczekiwane rozszerzenie.
-        /// </summary>
-        public string ext { get; private set; }
-
-
-
-        /// <summary>
-        /// Konstruktor.
-        /// </summary>
-        /// <param name="ext">Nazwa oczekiwanego rozszerzenia</param>
-        public CheckExtensions(string ext)
-        {
-            this.ext = ext;
-        }
-
-
-
-        /// <summary>
-        /// Sprawdzenie poprawności
-        /// </summary>
-        /// <param name="value">Przekazana wartość</param>
-        /// <param name="validationContext">Kontekst, w którym odbywa się sprawdzanie poprawności.</param>
-        /// <returns>Informacja czy format jest poprawny czy też nie.</returns>
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            if (value != null && this.ext != Path.GetExtension(((HttpPostedFileBase)value).FileName))
-            {
-                return new ValidationResult(this.ErrorMessage = "Niepoprawny format pliku!");
-            }
-            return null;
-        }
-    }
+    
 
 }

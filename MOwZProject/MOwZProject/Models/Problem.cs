@@ -20,6 +20,7 @@ namespace MOwZProject.Models
         public List<State> States { get; private set; }
         
 
+
         /// <summary>
         /// Rozmiar parlamentu.
         /// </summary>
@@ -27,6 +28,7 @@ namespace MOwZProject.Models
         [Required(ErrorMessage = "Wielkość parlamentu jest polem obowiązkowym")]
         [Range(0, int.MaxValue, ErrorMessage = "Wpisz liczbę z odpowiedniego przedziału")]
         public int ParlamentSize { get; set; }
+
 
 
         /// <summary>
@@ -93,7 +95,7 @@ namespace MOwZProject.Models
 
                 foreach(State s in this.States)
                 {
-                    list.Add(s.id, s.Size / hill(s.id));
+                    list.Add(s.Id, s.Size / hill(s.Id));
                 }
 
                 try
@@ -107,9 +109,9 @@ namespace MOwZProject.Models
                     {
                         this.Iterations.Add(temp); //dla danej iteracji komu przydzielono
                         // zwiększenie liczby mandatów
-                        this.States.Find(s => s.id == temp).Mandats++;
+                        this.States.Find(s => s.Id == temp).Mandats++;
                     }
-                    if (this.States.Find(s => s.id == temp).Mandats > this.States.Find(s => s.id == temp).Size)//Stan nie może mieć więcej miejsc w parlamencie niż obywateli.
+                    if (this.States.Find(s => s.Id == temp).Mandats > this.States.Find(s => s.Id == temp).Size)//Stan nie może mieć więcej miejsc w parlamencie niż obywateli.
                     {
                         this.Iterations.Clear();
                         foreach(State s in this.States)
@@ -145,7 +147,7 @@ namespace MOwZProject.Models
                 if (details)
                 {
                     this.Steps.Add(new Step());
-                    this.Steps.Last().Element = this.States.Find(s => s.id == list.ElementAt(i).Key).Name;
+                    this.Steps.Last().Element = this.States.Find(s => s.Id == list.ElementAt(i).Key).Name;
                 }
                 if (spelniaGornaKwote(hi, list.ElementAt(i).Key) &&
                     spelniaDolnaKwote(hi, list.ElementAt(i).Key, list))
@@ -172,7 +174,7 @@ namespace MOwZProject.Models
         private bool spelniaDolnaKwote(int hi, int StateIndex, IOrderedEnumerable<KeyValuePair<int, double>> list)
         {
             
-            double tmp = Math.Ceiling((double)(this.States.Sum(st => st.Size))/this.States.Find(st => st.id == StateIndex).Size * hi);
+            double tmp = Math.Ceiling((double)(this.States.Sum(st => st.Size))/this.States.Find(st => st.Id == StateIndex).Size * hi);
             int hb = tmp < this.ParlamentSize ? Convert.ToInt32(tmp) : this.ParlamentSize + 1; //+1, bo potem sprawdzamy do <hb, ale tylko w przypadku gdy wartość jest niezmieniona, tj. wartość mianownika/licznik
 
             int[] s = new int[this.States.Count];
@@ -183,17 +185,17 @@ namespace MOwZProject.Models
                 {
                     if (list.ElementAt(k).Value == StateIndex)
                     {
-                        s[k] = this.States.Find(st => st.id == list.ElementAt(k).Key).Mandats + 1;
+                        s[k] = this.States.Find(st => st.Id == list.ElementAt(k).Key).Mandats + 1;
                     }
                     else
                     {
-                        s[k] = Math.Max(this.States.Find(st => st.id == list.ElementAt(k).Key).Mandats, dolnaKwota(hii, list.ElementAt(k).Key));
+                        s[k] = Math.Max(this.States.Find(st => st.Id == list.ElementAt(k).Key).Mandats, dolnaKwota(hii, list.ElementAt(k).Key));
                     }
                 }
 
                 if (this.details)
                 {
-                    this.Steps.Last().DolnaKwota = "(" + s.Sum().ToString() + " ≤ " + hii.ToString() + ") AND (" + s.Sum().ToString() + " < " + hb.ToString() + ")";
+                    this.Steps.Last().DolnaKwota = "(" + s.Sum().ToString() + " ≤ " + hii.ToString() + ") ∧ (" + s.Sum().ToString() + " < " + hb.ToString() + ")";
                     this.Steps.Last().SpelniaTestDolnejKwoty = (s.Sum() <= hii && s.Sum() < hb);
                 }
 
@@ -224,7 +226,7 @@ namespace MOwZProject.Models
         /// <returns>Wartość dolnej kwoty.</returns>
         private int dolnaKwota(double hi, int StateIndex)
         {
-            return Convert.ToInt32(Math.Floor(this.States.Find(s => s.id == StateIndex).Size * hi / this.States.Sum(st => st.Size)));
+            return Convert.ToInt32(Math.Floor(this.States.Find(s => s.Id == StateIndex).Size * hi / this.States.Sum(st => st.Size)));
         }
 
 
@@ -239,10 +241,10 @@ namespace MOwZProject.Models
         {
             if (this.details)
             {
-                this.Steps.Last().GornaKwota = "⌈ (" + this.States.Find(s => s.id == StateIndex).Size.ToString() + " * " + hi.ToString() + ") / " + this.States.Sum(s => s.Size).ToString() + " ⌉ >= " + this.States.Find(s => s.id == StateIndex).Mandats.ToString();
-                this.Steps.Last().SpelniaTestGornejKwoty = Math.Ceiling((this.States.Find(s => s.id == StateIndex).Size * hi) / (double)this.States.Sum(s => s.Size)) >= this.States.Find(s => s.id == StateIndex).Mandats;
+                this.Steps.Last().GornaKwota = "⌈ (" + this.States.Find(s => s.Id == StateIndex).Size.ToString() + " * " + hi.ToString() + ") / " + this.States.Sum(s => s.Size).ToString() + " ⌉ >= " + this.States.Find(s => s.Id == StateIndex).Mandats.ToString();
+                this.Steps.Last().SpelniaTestGornejKwoty = Math.Ceiling((this.States.Find(s => s.Id == StateIndex).Size * hi) / (double)this.States.Sum(s => s.Size)) >= this.States.Find(s => s.Id == StateIndex).Mandats;
             }
-            return Math.Ceiling((this.States.Find(s => s.id == StateIndex).Size * hi) / (double)this.States.Sum(s => s.Size)) >= this.States.Find(s => s.id == StateIndex).Mandats;
+            return Math.Ceiling((this.States.Find(s => s.Id == StateIndex).Size * hi) / (double)this.States.Sum(s => s.Size)) >= this.States.Find(s => s.Id == StateIndex).Mandats;
         }
 
 
@@ -254,7 +256,7 @@ namespace MOwZProject.Models
         /// <returns>Wartość obliczona dla kryterium.</returns>
         private double hill(int StateIndex)
         {
-            int b = this.States.Find(s => s.id == StateIndex).Mandats + 1;
+            int b = this.States.Find(s => s.Id == StateIndex).Mandats + 1;
             return Math.Sqrt(b * (b + 1));
         }
 
