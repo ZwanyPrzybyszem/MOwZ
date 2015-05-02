@@ -41,7 +41,7 @@ namespace MOwZProject.Controllers
                 ViewBag.Message = "";
                 if (add != null)
                 {
-                    Problem.States.Add(new State() { id = Problem.States.Count });
+                    Problem.States.Add(new State() { Id = Problem.States.Count });
                 }
                 else if (process != null)
                 {
@@ -52,11 +52,11 @@ namespace MOwZProject.Controllers
                     int i = 0;
                     foreach (var s in Problem.States)
                     {
-                        s.id = i;
+                        s.Id = i;
 
                         if (s.Name == null || s.Name.Length < 0)
                         {
-                            s.Name = (s.id + 1).ToString();
+                            s.Name = (s.Id + 1).ToString();
                         }
 
                         if (s.Size < 1)
@@ -103,6 +103,92 @@ namespace MOwZProject.Controllers
             chart.SaveImage(ms, ChartImageFormat.Png);
             return File(ms.ToArray(), "image/png");
 
+        }
+
+
+        /// <summary>
+        /// GET dla formularza.
+        /// </summary>
+        /// <returns>Wynik metody akcji.</returns>
+        public ActionResult ProblemLiu()
+        {
+            return View(new ProblemLiu());
+        }
+
+
+
+        /// <summary>
+        /// Metoda dodaje nowe zadanie bądź przetwarza problem z formularza.
+        /// </summary>
+        /// <param name="Problem">Obiekt reprezentujący problem do przetworzenia.</param>
+        /// <param name="add">Zawiera dane, gdy wybrano opcję dodania nowego zadania.</param>
+        /// <param name="process">Zawiera dane, gdy wybrano opcję rozwiązania problemu.</param>
+        /// <returns>Wynik metody akcji.</returns>
+        [HttpPost]
+        public ActionResult ProblemLiu(ProblemLiu Problem, string add, string process)
+        {
+            try
+            {
+                ViewBag.Message = "";
+                if (add != null)
+                {
+                    Problem.Tasks.Add(new Task() { Id = Problem.Tasks.Count });
+                }
+                else if (process != null)
+                {
+                    if (Problem.NumberOfUnits < 1)
+                    {
+                        throw new Exception(String.Format("Wpisz odpowiednią liczbę (> 0) miejsc do przydziału!"));
+                    }
+                    int i = 0;
+                    foreach (var s in Problem.Tasks)
+                    {
+                        s.Id = i + 1;
+
+                        if (s.Duration <1 || s.Period< 1)
+                        {
+                            throw new Exception(String.Format("Niepoprawne dane opisujące zadania! Uzupełnij liczbami > 0!"));
+                        }
+                        i++;
+
+                    }
+                    Problem.getLiuResult();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "ERROR:" + ex.Message.ToString();
+            }
+            return View(Problem);
+        }
+
+
+
+        /// <summary>
+        /// Metoda tworzy wykres Gantta.
+        /// </summary>
+        /// <returns>Wynik metody akcji.</returns>
+        public ActionResult GanttChart(string tasks, string starts, string stops)
+        {
+            Chart chart = new Chart();
+            chart.ChartAreas.Add(new ChartArea());
+
+            chart.Series.Add(new Series("Data"));
+            chart.Series["Data"].ChartType = SeriesChartType.RangeBar;
+            chart.Series["Data"].XValueType = ChartValueType.Int32;
+            chart.Series["Data"].YValueType = ChartValueType.String;
+
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                chart.Series["Data"].Points.DataBindXY(
+                Array.ConvertAll(tasks.Split(' '), Int32.Parse),
+                Array.ConvertAll(starts.Split(' '), Int32.Parse),
+                Array.ConvertAll(stops.Split(' '), Int32.Parse));
+            }
+
+            MemoryStream ms = new MemoryStream();
+            chart.SaveImage(ms, ChartImageFormat.Png);
+            return File(ms.ToArray(), "image/png");
         }
 
 

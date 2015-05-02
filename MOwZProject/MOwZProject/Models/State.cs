@@ -16,7 +16,7 @@ namespace MOwZProject.Models
         /// Numer identyfikacyjny stanu.
         /// </summary>
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
 
 
 

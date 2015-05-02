@@ -37,28 +37,7 @@ namespace MOwZProject.Controllers
 
 
 
-        /// <summary>
-        /// Metoda tworzy wykres Gantta.
-        /// </summary>
-        /// <returns>Wynik metody akcji.</returns>
-        public ActionResult GanttChart()
-        {
-            Chart chart = new Chart();
-            chart.ChartAreas.Add(new ChartArea());
-
-            chart.Series.Add(new Series("Data"));
-            chart.Series["Data"].ChartType = SeriesChartType.RangeBar;
-            chart.Series["Data"].XValueType = ChartValueType.Int32;
-            chart.Series["Data"].YValueType = ChartValueType.String;
-            
-            chart.Series["Data"].Points.AddXY(1, 1, 2);
-            chart.Series["Data"].Points.AddXY(1, 3, 5);
-            chart.Series["Data"].Points.AddXY(2, 1, 4);
-
-            MemoryStream ms = new MemoryStream();
-            chart.SaveImage(ms, ChartImageFormat.Png);
-            return File(ms.ToArray(), "image/png");
-        }
+        
 
 
 

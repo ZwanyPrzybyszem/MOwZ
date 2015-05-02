@@ -1,0 +1,90 @@
+﻿@model MOwZProject.Models.FileProblemLiu
+
+@{
+    ViewBag.Title = "Algorytm statyczny Liu-Laylanda";
+}
+
+
+@using (Html.BeginForm("FileProblemLiu", "FileProblem", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h2>@ViewBag.Title</h2>
+    <hr />
+    <h3 style="color:dodgerblue">@ViewBag.Message</h3>
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <p>@Html.LabelFor(m => m.FileWithData)</p>
+        <div class="text-danger">
+            @Html.ValidationMessageFor(x => x.FileWithData)
+        </div>
+        @Html.TextBoxFor(m => m.FileWithData, new { type = "file" })
+
+        <br />
+        @Html.CheckBoxFor(m => m.ProblemFromFile.details)
+        @Html.LabelFor(m => m.ProblemFromFile.details)
+        <br />
+        <br />
+
+        <input type="submit" value="Przetwórz dane" class="btn btn-primary" />
+
+    </div>
+}
+
+<!------------------------------------------------------>
+@if (Model.ProblemFromFile != null && Model.ProblemFromFile.Iterations != null && Model.ProblemFromFile.Iterations.Count > 0)
+{
+    <br />
+    <br />
+
+    string tasks = string.Join(" ", Model.ProblemFromFile.Iterations.Select(s => s.Task.Id).ToArray());
+    string starts = string.Join(" ", Model.ProblemFromFile.Iterations.Select(s => s.Start).ToArray());
+    string stops = string.Join(" ", Model.ProblemFromFile.Iterations.Select(s => s.Stop).ToArray());
+
+    <img src="@Url.Action("GanttChart", "Problem", new { tasks = @tasks, starts = @starts, stops = @stops })" />
+
+    <br />
+
+    <p>Liczba przydzielanych jednstek czasu: <b>@Html.DisplayFor(model => model.ProblemFromFile.NumberOfUnits)</b> </p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProblemFromFile.Iterations.First().Task.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProblemFromFile.Iterations.First().Start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProblemFromFile.Iterations.First().Stop)
+            </th>
+        </tr>
+        @foreach (var item in Model.ProblemFromFile.Iterations)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Task.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stop)
+                </td>
+            </tr>
+
+        }
+
+    </table>
+
+
+
+
+    //TODO wyświetlanie szczegółów
+    /*
+     *
+     * */
+}

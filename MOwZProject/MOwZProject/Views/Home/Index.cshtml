@@ -4,28 +4,51 @@
 
 <div class="jumbotron">
     <h1>MOwZ</h1>
-    <p class="lead">Aplikacja umożliwia rozwiązanie problemów z wykorzystaniem <br /> algorytmu <b>Stilla z kryterium Hilla</b> lub algorytmu <b>statycznego Liu-Layland'a</b>.</p>
+    <p class="lead">Aplikacja umożliwia rozwiązanie problemów z wykorzystaniem <br /> algorytmu <b>Stilla z kryterium Hilla</b> lub algorytmu <b>statycznego Liu-Laylanda</b>.</p>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Dane z pliku</h2>
+    <div class="col-md-6">
+        <h2>Still - Dane z pliku</h2>
         <p>
-            Rozwiązuje problem metodą Stilla z kryterium Hilla lub za pomocą statycznego algorytmu Liu-Layland'a na podstawie danych z pliku tekstowego.
+            Rozwiązuje problem metodą Stilla z kryterium Hilla na podstawie danych z pliku tekstowego.
         </p>
         <p><div class="btn btn-primary btn-lg">
             @Html.ActionLink("Zobacz więcej", "FileProblem", "FileProblem", routeValues: null, htmlAttributes: new { id = "sillLink", style = "color:#ffffff; text-decoration:none" })
             </div></p>
     </div>
-    <div class="col-md-4">
-        <h2>Dane z formularza</h2>
+    <div class="col-md-6">
+        <h2>Liu-Layland - Dane z pliku</h2>
         <p>
-            Rozwiązuje problem metodą Stilla z kryterium Hilla lub za pomocą statycznego algorytmu Liu-Layland'a na podstawie danych wpisanych do formularza.
+            Rozwiązuje problem za pomocą statycznego algorytmu Liu-Layland'a na podstawie danych z pliku tekstowego.
         </p>
         <p>
             <div class="btn btn-primary btn-lg">
-                @Html.ActionLink("Zobacz więcej", "Problem", "Problem", routeValues: null, htmlAttributes: new { id = "liuLink", style = "color:#ffffff; text-decoration:none" })
+                @Html.ActionLink("Zobacz więcej", "FileProblemLiu", "FileProblem", routeValues: null, htmlAttributes: new { id = "liuLink", style = "color:#ffffff; text-decoration:none" })
             </div>
         </p>
     </div>
+    <div class="col-md-6">
+        <h2>Still - Dane z formularza</h2>
+        <p>
+            Rozwiązuje problem metodą Stilla z kryterium Hilla na podstawie danych wpisanych do formularza.
+        </p>
+        <p>
+            <div class="btn btn-primary btn-lg">
+                @Html.ActionLink("Zobacz więcej", "Problem", "Problem", routeValues: null, htmlAttributes: new { id = "stillLink", style = "color:#ffffff; text-decoration:none" })
+            </div>
+        </p>
+    </div>
+    <div class="col-md-6">
+        <h2>Liu-Layland - Dane z formularza</h2>
+        <p>
+            Rozwiązuje problem za pomocą statycznego algorytmu Liu-Layland'a na podstawie danych wpisanych do formularza.
+        </p>
+        <p>
+            <div class="btn btn-primary btn-lg">
+                @Html.ActionLink("Zobacz więcej", "ProblemLiu", "Problem", routeValues: null, htmlAttributes: new { id = "liuLink", style = "color:#ffffff; text-decoration:none" })
+            </div>
+        </p>
+    </div>
+    
 </div>

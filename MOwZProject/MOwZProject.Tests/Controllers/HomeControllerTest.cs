@@ -75,7 +75,7 @@ namespace MOwZProject.Tests.Controllers
             int i = 0;
             foreach (int t in tab)
             {
-                p.States.Add(new State { Name = (i + 1).ToString(), id = i, Mandats = 0, Size = t });
+                p.States.Add(new State { Name = (i + 1).ToString(), Id = i, Mandats = 0, Size = t });
                 i++;
             }
 
