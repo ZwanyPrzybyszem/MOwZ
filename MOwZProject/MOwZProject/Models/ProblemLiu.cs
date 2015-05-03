@@ -73,18 +73,41 @@ namespace MOwZProject.Models
         public void getLiuResult()
         {
             this.Iterations = new List<Iteration>();
-            int actualPosition = 0;
 
-            var sortedTasks = from task in this.Tasks orderby task.Duration,task.Period select task;
+            //var sortedTasks = from task in this.Tasks orderby task.Duration,task.Period select task;
+            List<Task> sortedTasks = this.Tasks.OrderBy(o => o.Period).ToList();
 
-            foreach (Task t in sortedTasks)
+            int nww = this.NumberOfUnits;
+
+            for (int i = 0; i < nww; i++)
             {
-                this.Iterations.Add(new Iteration(t, actualPosition, actualPosition + t.Duration));
-                actualPosition = actualPosition + t.Duration;
-                if (t.Period < actualPosition)
+                Task nextTask = null;
+
+                foreach (Task t in sortedTasks)
                 {
-                    throw new Exception(String.Format("Nie wystarczająca liczba jednostek czasu dla zadania {0}",t.Id));
+                    if (t.TaskRemain > ((t.CompletedTask+1)*t.Period)-i)
+                    {
+                        throw new Exception(String.Format("Nie wystarczająca liczba jednostek czasu dla zadania {0}", t.Id));
+                    }
+                    if (t.TaskRemain == 0 && t.CompletedTask*t.Period == i)
+                    {
+                        t.TaskRemain = t.Duration;
+                    }
+                    if (nextTask == null && t.TaskRemain > 0)
+                    {
+                        nextTask = t;
+                    }
                 }
+
+                if (nextTask != null)
+                {
+                    this.Iterations.Add(new Iteration(nextTask, i, i + 1));
+                    if (--nextTask.TaskRemain == 0)
+                    {
+                        nextTask.CompletedTask++;
+                    }
+                }
+                // Jeśli nextTask == null to ewentualnie dodać wyświetlanie informacji, że w tej iteracji nikomu nie przydzielono.   
             }
 
         }

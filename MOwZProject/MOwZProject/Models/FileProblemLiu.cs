@@ -86,7 +86,7 @@ namespace MOwZProject.Models
 
                 for (int i = 0; i < durations.Length; i++)
                 {
-                    this.ProblemFromFile.Tasks.Add(new Task { Id = i, Duration = durations[i], Period = periods[i] });
+                    this.ProblemFromFile.Tasks.Add(new Task { Id = i, Duration = durations[i], Period = periods[i], TaskRemain = durations[i], CompletedTask = 0 });
                 }
             }
             else

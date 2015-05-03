@@ -38,5 +38,16 @@ namespace MOwZProject.Models
         [DisplayName("Okres dla wykonania zadania")]
         [Required(ErrorMessage = "Okres dla wykonania zadania jest polem obowiązkowym")]
         public int Period { get; set; }
+
+        /// <summary>
+        /// Pozostały czas przetwarzania tego zadania.
+        /// </summary>
+        public int TaskRemain { get; set; }
+
+        /// <summary>
+        /// Liczba wykonanych przetworzeń tego zadania.
+        /// </summary>
+        public int CompletedTask { get; set; }
+
     }
 }
