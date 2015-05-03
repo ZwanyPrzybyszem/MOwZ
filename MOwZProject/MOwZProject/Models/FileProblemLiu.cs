@@ -38,7 +38,7 @@ namespace MOwZProject.Models
         /// </summary>
         public void updateProblem()
         {
-            int[] words;
+            int noOfTasks;
             int[] durations;
             int[] periods;
 
@@ -48,16 +48,16 @@ namespace MOwZProject.Models
 
                 try
                 {
-                    //LiczbaZadanDoPrzydzialu LiczbaJednostekDoPrzesledzenia
-                    words = Array.ConvertAll(reader.ReadLine().Split(new Char[] { ' ', '\t' }), Int32.Parse);
+                    //LiczbaZadanDoPrzydzialu
+                    noOfTasks =  Convert.ToInt32(reader.ReadLine());
                 }
                 catch (Exception)
                 {
                     throw new Exception("Niepoprawne dane w pliku");
                 }
-                if (words[0] > 50 || words[1] > 50)
+                if (noOfTasks > 50)
                 {
-                    throw new Exception("Zbyt duża liczba zadan lub jednostek do prześledzenia");
+                    throw new Exception("Zbyt duża liczba zadan");
                 }
                 try
                 {
@@ -75,12 +75,11 @@ namespace MOwZProject.Models
                 reader.Close();
             }
 
-            if (words.Length == 2 && words[0] == durations.Length && words[0] == periods.Length &&
-                words.All(x => x > 0) && durations.All(x => x > 0) && periods.All(x => x > 0))
+            if (noOfTasks == durations.Length && noOfTasks == periods.Length &&
+                noOfTasks > 0 && durations.All(x => x > 0) && periods.All(x => x > 0))
             {
 
                 //this.ProblemFromFile = new Problem();
-                this.ProblemFromFile.NumberOfUnits = words[1];
                 this.ProblemFromFile.Tasks.Clear();
 
 

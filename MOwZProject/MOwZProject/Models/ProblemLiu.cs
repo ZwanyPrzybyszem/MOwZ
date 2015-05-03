@@ -21,20 +21,10 @@ namespace MOwZProject.Models
 
 
         /// <summary>
-        /// Liczba maszyn.
-        /// </summary>
-        [DisplayName("Liczba jednostek do prześledzenia")]
-        [Required(ErrorMessage = "Liczba jednostek do prześledzenia jest polem obowiązkowym")]
-        [Range(0, int.MaxValue, ErrorMessage = "Wpisz liczbę z odpowiedniego przedziału")]
-        public int NumberOfUnits { get; set; }
-
-
-
-        /// <summary>
         /// Informacja czy szczegóły mają być wyświetlane.
         /// </summary>
         [DisplayName("Wyświetl szczegóły przetwarzania")]
-        public bool details { get; private set; }
+        public bool details { get; set; }
 
 
 
@@ -59,6 +49,7 @@ namespace MOwZProject.Models
         {
             Tasks = new List<Task>();
             Tasks.Add(new Task());
+            Iterations = new List<Iteration>();
         }
 
 
@@ -105,7 +96,10 @@ namespace MOwZProject.Models
         /// </summary>
         public void getLiuResult()
         {
-            this.Iterations = new List<Iteration>();
+            if (this.details)
+            {
+                this.StepsLiu = new List<StepLiu>();
+            }
 
             //var sortedTasks = from task in this.Tasks orderby task.Duration,task.Period select task;
             List<Task> sortedTasks = this.Tasks.OrderBy(o => o.Period).ToList();
@@ -134,6 +128,11 @@ namespace MOwZProject.Models
 
                 if (nextTask != null)
                 {
+                    if (this.details)
+                    {
+                        this.StepsLiu.Add(new StepLiu(nextTask, i, i + 1));
+                    }
+
                     Iteration lastIteration = null;
                     int c = this.Iterations.Count();
 
