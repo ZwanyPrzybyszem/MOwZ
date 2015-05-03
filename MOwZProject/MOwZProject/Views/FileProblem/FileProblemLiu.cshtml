@@ -48,8 +48,6 @@
 
     <br />
 
-    <p>Liczba przydzielanych jednstek czasu: <b>@Html.DisplayFor(model => model.ProblemFromFile.NumberOfUnits)</b> </p>
-
     <table class="table">
         <tr>
             <th>
@@ -81,10 +79,41 @@
     </table>
 
 
+    if (Model.ProblemFromFile.details && Model.ProblemFromFile.StepsLiu != null)
+    {
 
+        <p>Kroki algorytmu: </p>
 
-    //TODO wyświetlanie szczegółów
-    /*
-     *
-     * */
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProblemFromFile.StepsLiu.First().Task.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProblemFromFile.StepsLiu.First().Start)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProblemFromFile.StepsLiu.First().Stop)
+                </th>
+            </tr>
+            @foreach (var item in Model.ProblemFromFile.StepsLiu)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Task.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Start)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stop)
+                    </td>
+
+                </tr>
+
+            }
+
+        </table>
+    }
+
 }

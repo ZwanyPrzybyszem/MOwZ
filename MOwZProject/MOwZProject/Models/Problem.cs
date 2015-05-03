@@ -42,7 +42,7 @@ namespace MOwZProject.Models
         /// Informacja czy szczegóły mają być wyświetlane.
         /// </summary>
         [DisplayName("Wyświetl szczegóły przetwarzania")]
-        public bool details { get; private set; }
+        public bool details { get; set; }
 
 
 

@@ -136,10 +136,6 @@ namespace MOwZProject.Controllers
                 }
                 else if (process != null)
                 {
-                    if (Problem.NumberOfUnits < 1)
-                    {
-                        throw new Exception(String.Format("Wpisz odpowiednią liczbę (> 0) miejsc do przydziału!"));
-                    }
                     int i = 0;
                     foreach (var s in Problem.Tasks)
                     {
