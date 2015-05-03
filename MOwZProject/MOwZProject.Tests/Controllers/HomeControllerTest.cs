@@ -330,5 +330,143 @@ namespace MOwZProject.Tests.Controllers
             }
         }
 
+        [TestMethod]
+        public void Liu03()
+        {
+            const int size = 1;
+
+            int[] dur = new int[size] { 10 };
+            int[] per = new int[size] { 8 };
+
+            int[] resultIter = new int[] { };
+            try
+            {
+                ProblemLiu p = checkLiu(dur, per, size);
+                for (int i = 0; i < p.Iterations.Count(); i++)
+                {
+                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+                }
+                Assert.Fail();
+            }
+            catch (Exception) { }
+        }
+
+        [TestMethod]
+        public void Liu04()
+        {
+            const int size = 2;
+
+            int[] dur = new int[size] { 10, 5 };
+            int[] per = new int[size] { 20, 10 };
+
+            int[] resultIter = new int[] { 1, 0, 1, 0 };
+
+            ProblemLiu p = checkLiu(dur, per, size);
+
+            for (int i = 0; i < p.Iterations.Count(); i++)
+            {
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+            }
+        }
+
+        [TestMethod]
+        public void Liu05()
+        {
+            const int size = 2;
+
+            int[] dur = new int[size] { 5, 0 };
+            int[] per = new int[size] { 5, 0 };
+
+            int[] resultIter = new int[] { };
+            try
+            {
+                ProblemLiu p = checkLiu(dur, per, size);
+                for (int i = 0; i < p.Iterations.Count(); i++)
+                {
+                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+                }
+                Assert.Fail();
+            }
+            catch (Exception) { }
+        }
+
+        [TestMethod]
+        public void Liu06()
+        {
+            const int size = 2;
+
+            int[] dur = new int[size] { 1, 3 };
+            int[] per = new int[size] { 5, 4 };
+
+            int[] resultIter = new int[] { 1, 0, 1, 0, 1, 0, 1, 0, 1 };
+
+            ProblemLiu p = checkLiu(dur, per, size);
+
+            for (int i = 0; i < p.Iterations.Count(); i++)
+            {
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+            }
+        }
+
+        [TestMethod]
+        public void Liu07()
+        {
+            const int size = 1;
+
+            int[] dur = new int[size] { -3 };
+            int[] per = new int[size] { -5 };
+
+            int[] resultIter = new int[] { };
+            try
+            {
+                ProblemLiu p = checkLiu(dur, per, size);
+                for (int i = 0; i < p.Iterations.Count(); i++)
+                {
+                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+                }
+                Assert.Fail();
+            }
+            catch (Exception) { }
+        }
+
+        [TestMethod]
+        public void Liu08()
+        {
+            const int size = 2;
+
+            int[] dur = new int[size] { int.Parse("444"), 111 };
+            int[] per = new int[size] { int.Parse("555"), 111 };
+
+            int[] resultIter = new int[] { };
+            try
+            {
+                ProblemLiu p = checkLiu(dur, per, size);
+                for (int i = 0; i < p.Iterations.Count(); i++)
+                {
+                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+                }
+                Assert.Fail();
+            }
+            catch (Exception) { }
+        }
+
+        [TestMethod]
+        public void Liu09()
+        {
+            const int size = 3;
+
+            int[] dur = new int[size] { 5, 250, 300 };
+            int[] per = new int[size] { 1000, 500, 900 };
+
+            int[] resultIter = new int[] { 1, 2, 1, 2, 0, 2, 1, 2, 0, 1, 2, 1, 2, 0, 1, 2, 1, 2, 0, 1, 2, 1, 2, 0, 1, 2, 1, 2, 0, 2, 1, 2, 1, 0, 2, 1, 2, 1, 2, 1, 2, 0, 1, 2, 1, 2, 0 };
+
+            ProblemLiu p = checkLiu(dur, per, size);
+
+            for (int i = 0; i < p.Iterations.Count(); i++)
+            {
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+            }
+        }
+
     }
 }
