@@ -103,44 +103,35 @@
 
     </table>
 
-
-    if (Model.details && Model.StepsLiu != null)
-    {
-
-        <p>Kroki algorytmu: </p>
-
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.StepsLiu.First().Task.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StepsLiu.First().Start)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StepsLiu.First().Stop)
-                </th>
-            </tr>
-            @foreach (var item in Model.StepsLiu)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Task.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Start)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Stop)
-                </td>
-
-            </tr>
-
-            }
-
-        </table>
-    }
-
 }
+
+@if (Model.details && Model.Steps != null)
+{
+    <br />
+    <p>Kroki algorytmu: </p>
+
+    <table class="table">
+        @{
+    int i = 0;
+    foreach (var item in Model.Steps)
+    {
+        i++;
+        <tr>
+            <td>
+                @i .
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item)
+            </td>
+
+        </tr>
+
+    }
+        }
+
+    </table>
+}
+
+
 
 
