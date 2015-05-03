@@ -32,7 +32,7 @@ namespace MOwZProject.Models
         /// Zakończenie wykonywania zadania.
         /// </summary>
         [DisplayName("Zakończenie wykonywania zadania")]
-        public int Stop { get; private set; }
+        public int Stop { get; set; }
 
 
 

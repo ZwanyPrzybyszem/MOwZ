@@ -18,7 +18,7 @@ namespace MOwZProject.Models
         [DisplayName("Rozważane zadania")]
         [Required(ErrorMessage = "Konieczne jest podanie zadań!")]
         public List<Task> Tasks { get; private set; }
-        
+
 
         /// <summary>
         /// Liczba maszyn.
@@ -67,7 +67,7 @@ namespace MOwZProject.Models
         /// </summary>
         public int getNWD(int x, int y)
         {
-            while(x%y !=0 && y%x !=0)
+            while (x % y != 0 && y % x != 0)
             {
                 if (x > y)
                 {
@@ -78,7 +78,7 @@ namespace MOwZProject.Models
                     y %= x;
                 }
             }
-            return x<y ? x : y;
+            return x < y ? x : y;
         }
 
         /// <summary>
@@ -118,11 +118,11 @@ namespace MOwZProject.Models
 
                 foreach (Task t in sortedTasks)
                 {
-                    if (t.TaskRemain > ((t.CompletedTask+1)*t.Period)-i)
+                    if (t.TaskRemain > ((t.CompletedTask + 1) * t.Period) - i)
                     {
                         throw new Exception(String.Format("Nie wystarczająca liczba jednostek czasu dla zadania {0}", t.Id));
                     }
-                    if (t.TaskRemain == 0 && t.CompletedTask*t.Period == i)
+                    if (t.TaskRemain == 0 && t.CompletedTask * t.Period == i)
                     {
                         t.TaskRemain = t.Duration;
                     }
@@ -134,7 +134,21 @@ namespace MOwZProject.Models
 
                 if (nextTask != null)
                 {
-                    this.Iterations.Add(new Iteration(nextTask, i, i + 1));
+                    Iteration lastIteration = null;
+                    int c = this.Iterations.Count();
+
+                    if (c > 0) 
+                    {
+                        lastIteration = this.Iterations.ElementAt(c - 1);
+                    }
+                    if (lastIteration != null && lastIteration.Task.Equals(nextTask))
+                    {
+                        lastIteration.Stop++;
+                    }
+                    else
+                    {
+                        this.Iterations.Add(new Iteration(nextTask, i, i + 1));
+                    }
                     if (--nextTask.TaskRemain == 0)
                     {
                         nextTask.CompletedTask++;

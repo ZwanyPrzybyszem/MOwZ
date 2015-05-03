@@ -16,48 +16,6 @@ namespace MOwZProject.Tests.Controllers
     [TestClass]
     public class HomeControllerTest
     {
-        /*
-        [TestMethod]
-        public void Index()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void About()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.About() as ViewResult;
-
-            // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
-
-        [TestMethod]
-        public void Still()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Still() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
-        }
-        */
-
-
 
         /// <summary>
         /// Metoda przetwarza problem.
@@ -65,12 +23,11 @@ namespace MOwZProject.Tests.Controllers
         /// <param name="tab">Liczności poszczególnych stanów.</param>
         /// <param name="size">Rozmiar parlamentu.</param>
         /// <returns>Problem z wygenerowanymi wynikami.</returns>
-        private Problem check(int[] tab, int size)
+        private Problem checkStill(int[] tab, int size)
         {
             Problem p = new Problem();
             p.ParlamentSize = size;
-
-
+            p.States.Clear();
 
             int i = 0;
             foreach (int t in tab)
@@ -84,6 +41,28 @@ namespace MOwZProject.Tests.Controllers
             return p;
         }
 
+        /// <summary>
+        /// Metoda przetwarza problem.
+        /// </summary>
+        /// <param name="durations">Czasy trwania poszczególnych zadań.</param>
+        /// <param name="periods">Okresy wykonywania poszczególnych zadań.</param>
+        /// <returns>Problem z wygenerowanymi wynikami.</returns>
+        private ProblemLiu checkLiu(int[] durations, int[] periods, int size)
+        {
+            ProblemLiu p = new ProblemLiu();
+            p.Tasks.Clear();
+
+            for (int i = 0; i < size; i++)
+            {
+                p.Tasks.Add(new Task { Id = i, Duration = durations[i], Period = periods[i], TaskRemain = durations[i], CompletedTask = 0 });
+            }
+
+            p.getLiuResult();
+
+            return p;
+        }
+
+
 
 
         /// <summary>
@@ -95,9 +74,9 @@ namespace MOwZProject.Tests.Controllers
             int[] tab = new int[2] { 10, 5 };
             int[] res = new int[2] { 2, 1 };
 
-            Problem p = check(tab, 3);
+            Problem p = checkStill(tab, 3);
 
-            for (int i =0; i< res.Length; i++)
+            for (int i =0; i < res.Length; i++)
             {
                 Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
             }
@@ -109,7 +88,7 @@ namespace MOwZProject.Tests.Controllers
             int[] tab = new int[2] { 5, 5 };
             int[] res = new int[2] { 1, 1 };
 
-            Problem p = check(tab, 2);
+            Problem p = checkStill(tab, 2);
 
             for (int i = 0; i < res.Length; i++)
             {
@@ -123,7 +102,7 @@ namespace MOwZProject.Tests.Controllers
             int[] tab = new int[3] { 7270, 1230, 2220 };
             int[] res = new int[3] { 4, 0, 1 };
 
-            Problem p = check(tab, 5);
+            Problem p = checkStill(tab, 5);
 
             for (int i = 0; i < res.Length; i++)
             {
@@ -137,7 +116,7 @@ namespace MOwZProject.Tests.Controllers
             int[] tab = new int[7] { 1850, 2560, 6000, 4342, 1849, 2341, 5555 };
             int[] res = new int[7] { 1, 1, 4, 3, 1, 1, 4 };
 
-            Problem p = check(tab, 15);
+            Problem p = checkStill(tab, 15);
 
             for (int i = 0; i < res.Length; i++)
             {
@@ -151,7 +130,7 @@ namespace MOwZProject.Tests.Controllers
             int[] tab = new int[3] { 500, 1500, 1500 };
             int[] res = new int[3] { 1, 5, 4 };
 
-            Problem p = check(tab, 10);
+            Problem p = checkStill(tab, 10);
 
             for (int i = 0; i < res.Length; i++)
             {
@@ -166,7 +145,7 @@ namespace MOwZProject.Tests.Controllers
             int[] res = new int[5] { -1, -1, -1, -1, -1 };
 
             try { 
-                Problem p = check(tab, 5);
+                Problem p = checkStill(tab, 5);
 
                 for (int i = 0; i < res.Length; i++)
                 {
@@ -185,7 +164,7 @@ namespace MOwZProject.Tests.Controllers
 
             try
             {
-                Problem p = check(tab, 2);
+                Problem p = checkStill(tab, 2);
 
                 for (int i = 0; i < res.Length; i++)
                 {
@@ -202,7 +181,7 @@ namespace MOwZProject.Tests.Controllers
             int[] tab = new int[5] { 2, 2, 2, 3, 2 };
             int[] res = new int[5] { 1, 0, 0, 1, 0 };
 
-            Problem p = check(tab, 2);
+            Problem p = checkStill(tab, 2);
 
             for (int i = 0; i < res.Length; i++)
             {
@@ -216,7 +195,7 @@ namespace MOwZProject.Tests.Controllers
             int[] tab = new int[5] { 1, 2, 1, 1, 4 };
             int[] res = new int[5] { 0, 1, 0, 0, 4 };
 
-            Problem p = check(tab, 5);
+            Problem p = checkStill(tab, 5);
 
             for (int i = 0; i < res.Length; i++)
             {
@@ -232,7 +211,7 @@ namespace MOwZProject.Tests.Controllers
             
             try
             {
-                Problem p = check(tab, 100);
+                Problem p = checkStill(tab, 100);
 
                 for (int i = 0; i < res.Length; i++)
                 {
@@ -249,7 +228,7 @@ namespace MOwZProject.Tests.Controllers
             int[] tab = new int[9] { 1250, 1000, 750, 1500, 1750, 2000, 500, 1500, 1000 };
             int[] res = new int[9] { 1, 0, 0, 1, 1, 1, 0, 1, 0 };
 
-            Problem p = check(tab, 5);
+            Problem p = checkStill(tab, 5);
 
             for (int i = 0; i < res.Length; i++)
             {
@@ -263,11 +242,91 @@ namespace MOwZProject.Tests.Controllers
             int[] tab = new int[12] { 25, 10, 75, 15, 17, 20, 50, 50, 10, 40, 30, 20 };
             int[] res = new int[12] { 0, 0, 2, 0, 0, 0, 1, 1, 0, 0, 0, 0 };
 
-            Problem p = check(tab, 4);
+            Problem p = checkStill(tab, 4);
 
             for (int i = 0; i < res.Length; i++)
             {
                 Assert.AreEqual(p.States.ElementAt(i).Mandats, res[i]);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Przykładowy test.
+        /// </summary>
+        [TestMethod]
+        public void LiuTestNew()
+        {
+            const int size = 2;
+
+            int[] dur = new int[size] { 1, 2 };
+            int[] per = new int[size] { 3, 3 };
+
+            int[] resultIter = new int[] { 0, 1 };
+
+            ProblemLiu p = checkLiu(dur, per, size);
+
+            for (int i = 0; i < p.Iterations.Count(); i++)
+            {
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+            }
+        }
+
+        [TestMethod]
+        public void Liu00()
+        {
+            const int size = 2;
+
+            int[] dur = new int[size] { 2, 5 };
+            int[] per = new int[size] { 4, 10 };
+
+            int[] resultIter = new int[] { };
+            try
+            { 
+                ProblemLiu p = checkLiu(dur, per, size);
+                for (int i = 0; i < p.Iterations.Count(); i++)
+                {
+                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+                }
+                Assert.Fail();
+            }
+            catch (Exception) { }
+        }
+
+        [TestMethod]
+        public void Liu01()
+        {
+            const int size = 4;
+
+            int[] dur = new int[size] { 3, 2, 1, 3 };
+            int[] per = new int[size] { 9, 9, 9, 9 };
+
+            int[] resultIter = new int[] { 0, 1, 2, 3 };
+
+            ProblemLiu p = checkLiu(dur, per, size);
+
+            for (int i = 0; i < p.Iterations.Count(); i++)
+            {
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+            }
+        }
+
+        [TestMethod]
+        public void Liu02()
+        {
+            const int size = 2;
+
+            int[] dur = new int[size] { 1, 2 };
+            int[] per = new int[size] { 3, 6 };
+
+            int[] resultIter = new int[] { 0, 1, 0 };
+
+            ProblemLiu p = checkLiu(dur, per, size);
+
+            for (int i = 0; i < p.Iterations.Count(); i++)
+            {
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
             }
         }
 
