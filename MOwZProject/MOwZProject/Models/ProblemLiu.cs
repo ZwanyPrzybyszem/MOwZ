@@ -20,7 +20,6 @@ namespace MOwZProject.Models
         public List<Task> Tasks { get; private set; }
         
 
-
         /// <summary>
         /// Liczba maszyn.
         /// </summary>
@@ -75,14 +74,20 @@ namespace MOwZProject.Models
         {
             this.Iterations = new List<Iteration>();
             int actualPosition = 0;
-            foreach (Task t in this.Tasks)
+
+            var sortedTasks = from task in this.Tasks orderby task.Duration,task.Period select task;
+
+            foreach (Task t in sortedTasks)
             {
                 this.Iterations.Add(new Iteration(t, actualPosition, actualPosition + t.Duration));
                 actualPosition = actualPosition + t.Duration;
+                if (t.Period < actualPosition)
+                {
+                    throw new Exception(String.Format("Nie wystarczająca liczba jednostek czasu dla zadania {0}",t.Id));
+                }
             }
-            
-        }
 
+        }
 
     }
 }
