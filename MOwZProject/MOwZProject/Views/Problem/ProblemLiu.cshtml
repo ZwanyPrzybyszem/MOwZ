@@ -10,7 +10,7 @@
 
     <h2>@ViewBag.Title</h2>
     <hr />
-    <h3 style="color:dodgerblue">@ViewBag.Message</h3>
+    <h3 style="color:red">@ViewBag.Message</h3>
     <div class="form-horizontal">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -68,8 +68,13 @@
     string tasks = string.Join(" ", Model.Iterations.Select(s => s.Task.Id).ToArray());
     string starts = string.Join(" ", Model.Iterations.Select(s => s.Start).ToArray());
     string stops = string.Join(" ", Model.Iterations.Select(s => s.Stop).ToArray());
+    string color = "blue";
+    if (ViewBag.Message.Length > 0)
+    {
+        color = "red"; 
+    }
 
-    <img src="@Url.Action("GanttChart", "Problem", new { tasks = @tasks, starts = @starts, stops = @stops })" />
+    <img src="@Url.Action("GanttChart", "Problem", new { tasks = @tasks, starts = @starts, stops = @stops, color = @color })" />
 
     <br />
 

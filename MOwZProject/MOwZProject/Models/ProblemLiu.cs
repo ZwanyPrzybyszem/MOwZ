@@ -43,6 +43,12 @@ namespace MOwZProject.Models
 
 
         /// <summary>
+        /// Informacja czy uszeregowanie zostało zrealizowane.
+        /// </summary>
+        public bool Done { get; private set; }
+
+
+        /// <summary>
         /// Konstruktor inicjalizujący listy.
         /// </summary>
         public ProblemLiu()
@@ -96,6 +102,7 @@ namespace MOwZProject.Models
         /// </summary>
         public void getLiuResult()
         {
+            this.Done = true;
             if (this.details)
             {
                 this.Steps = new List<string>();
@@ -114,11 +121,12 @@ namespace MOwZProject.Models
                 {
                     if (t.TaskRemain > ((t.CompletedTask + 1) * t.Period) - i)
                     {
-                        this.Iterations.Clear();
+                        //this.Iterations.Clear();
                         if (this.details)
                         {
                             this.Steps.Add("Nie wystarczająca liczba jednostek czasu dla zadania " + t.Id.ToString());
                         }
+                        this.Done = false;
                         throw new Exception(String.Format("Nie wystarczająca liczba jednostek czasu dla zadania {0}", t.Id));
                     }
                     if (t.TaskRemain == 0 && t.CompletedTask * t.Period == i)
