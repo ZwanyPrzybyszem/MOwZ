@@ -62,9 +62,42 @@ namespace MOwZProject.Models
         }
 
 
+        /// <summary>
+        /// Zwraca największy wspólny dzielnik dwóch liczb.
+        /// </summary>
+        public int getNWD(int x, int y)
+        {
+            while(x%y !=0 && y%x !=0)
+            {
+                if (x > y)
+                {
+                    x %= y;
+                }
+                else
+                {
+                    y %= x;
+                }
+            }
+            return x<y ? x : y;
+        }
 
+        /// <summary>
+        /// Zwraca najmniejszą wspólną wielokrotność okresów zadań.
+        /// </summary>
+        public int getNWW()
+        {
+            int numberOfTasks = this.Tasks.Count();
 
+            int nww = this.Tasks[0].Period;
 
+            for (int i = 1; i < numberOfTasks; i++)
+            {
+                int taskPeriod = this.Tasks[i].Period;
+                nww = (nww * taskPeriod) / getNWD(nww, taskPeriod);
+            }
+
+            return nww;
+        }
 
 
         /// <summary>
@@ -77,7 +110,7 @@ namespace MOwZProject.Models
             //var sortedTasks = from task in this.Tasks orderby task.Duration,task.Period select task;
             List<Task> sortedTasks = this.Tasks.OrderBy(o => o.Period).ToList();
 
-            int nww = this.NumberOfUnits;
+            int nww = getNWW();
 
             for (int i = 0; i < nww; i++)
             {
