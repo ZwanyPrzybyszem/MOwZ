@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MOwZProject.Models;
 using System.Web.UI.DataVisualization.Charting;
 using System.IO;
+using System.Drawing;
 
 namespace MOwZProject.Controllers
 {
@@ -164,13 +165,17 @@ namespace MOwZProject.Controllers
         /// Metoda tworzy wykres Gantta.
         /// </summary>
         /// <returns>Wynik metody akcji.</returns>
-        public ActionResult GanttChart(string tasks, string starts, string stops)
+        public ActionResult GanttChart(string tasks, string starts, string stops, string color)
         {
             Chart chart = new Chart();
             chart.ChartAreas.Add(new ChartArea());
 
             chart.Series.Add(new Series("Data"));
             chart.Series["Data"].ChartType = SeriesChartType.RangeBar;
+            if (color == "red")
+            {
+                chart.Series["Data"].Color = Color.Red;
+            }
             chart.Series["Data"].XValueType = ChartValueType.Int32;
             chart.Series["Data"].YValueType = ChartValueType.String;
 
