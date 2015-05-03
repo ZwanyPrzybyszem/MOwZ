@@ -77,43 +77,33 @@
         }
 
     </table>
+}
 
+@if (Model.ProblemFromFile.details && Model.ProblemFromFile.Steps != null)
+{
+    <br />
+    <p>Kroki algorytmu: </p>
 
-    if (Model.ProblemFromFile.details && Model.ProblemFromFile.StepsLiu != null)
+    <table class="table">
+        @{
+    int i = 0;
+    foreach (var item in Model.ProblemFromFile.Steps)
     {
+        i++;
+        <tr>
+            <td>
+                @i .
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item)
+            </td>
 
-        <p>Kroki algorytmu: </p>
+        </tr>
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProblemFromFile.StepsLiu.First().Task.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProblemFromFile.StepsLiu.First().Start)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProblemFromFile.StepsLiu.First().Stop)
-                </th>
-            </tr>
-            @foreach (var item in Model.ProblemFromFile.StepsLiu)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Task.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Start)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Stop)
-                    </td>
-
-                </tr>
-
-            }
-
-        </table>
     }
+        }
+
+    </table>
+
 
 }

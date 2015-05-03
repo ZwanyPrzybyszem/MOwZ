@@ -127,7 +127,6 @@
     <Compile Include="Models\Problem.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\Iteration.cs" />
-    <Compile Include="Models\StepLiu.cs" />
     <Compile Include="Models\Step.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

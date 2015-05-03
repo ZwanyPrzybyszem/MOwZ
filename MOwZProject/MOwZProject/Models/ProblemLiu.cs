@@ -31,7 +31,7 @@ namespace MOwZProject.Models
         /// <summary>
         /// Lista zawierająca szczegóły kolejnych kroków.
         /// </summary>
-        public List<StepLiu> StepsLiu { get; private set; }
+        public List<string> Steps { get; private set; }
 
 
 
@@ -98,7 +98,7 @@ namespace MOwZProject.Models
         {
             if (this.details)
             {
-                this.StepsLiu = new List<StepLiu>();
+                this.Steps = new List<string>();
             }
 
             //var sortedTasks = from task in this.Tasks orderby task.Duration,task.Period select task;
@@ -114,6 +114,11 @@ namespace MOwZProject.Models
                 {
                     if (t.TaskRemain > ((t.CompletedTask + 1) * t.Period) - i)
                     {
+                        this.Iterations.Clear();
+                        if (this.details)
+                        {
+                            this.Steps.Add("Nie wystarczająca liczba jednostek czasu dla zadania " + t.Id.ToString());
+                        }
                         throw new Exception(String.Format("Nie wystarczająca liczba jednostek czasu dla zadania {0}", t.Id));
                     }
                     if (t.TaskRemain == 0 && t.CompletedTask * t.Period == i)
@@ -128,11 +133,6 @@ namespace MOwZProject.Models
 
                 if (nextTask != null)
                 {
-                    if (this.details)
-                    {
-                        this.StepsLiu.Add(new StepLiu(nextTask, i, i + 1));
-                    }
-
                     Iteration lastIteration = null;
                     int c = this.Iterations.Count();
 
@@ -151,9 +151,12 @@ namespace MOwZProject.Models
                     if (--nextTask.TaskRemain == 0)
                     {
                         nextTask.CompletedTask++;
+                        if (this.details)
+                        {
+                            this.Steps.Add(String.Format("Uszeregowano zadanie {0} (po raz {1})", nextTask.Id, nextTask.CompletedTask));
+                        }
                     }
-                }
-                // Jeśli nextTask == null to ewentualnie dodać wyświetlanie informacji, że w tej iteracji nikomu nie przydzielono.   
+                }  
             }
 
         }
