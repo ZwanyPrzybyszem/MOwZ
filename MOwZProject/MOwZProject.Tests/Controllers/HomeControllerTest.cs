@@ -468,5 +468,26 @@ namespace MOwZProject.Tests.Controllers
             }
         }
 
+        [TestMethod]
+        public void Liu10()
+        {
+            const int size = 2;
+
+            int[] dur = new int[size] { 3, 1 };
+            int[] per = new int[size] { 3, 3 };
+
+            int[] resultIter = new int[] { 0, 1 };
+            try
+            {
+                ProblemLiu p = checkLiu(dur, per, size);
+                for (int i = 0; i < p.Iterations.Count(); i++)
+                {
+                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
+                }
+                Assert.Fail();
+            }
+            catch (Exception) { }
+        }
+
     }
 }

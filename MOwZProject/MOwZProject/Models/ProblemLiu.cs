@@ -119,7 +119,7 @@ namespace MOwZProject.Models
 
                 foreach (Task t in sortedTasks)
                 {
-                    if (t.TaskRemain > ((t.CompletedTask + 1) * t.Period) - i)
+                    if ( (t.TaskRemain > ((t.CompletedTask + 1) * t.Period) - i) || ((t.TaskRemain == ((t.CompletedTask + 1) * t.Period) - i) && nextTask != null) )
                     {
                         //this.Iterations.Clear();
                         if (this.details)
