@@ -44,7 +44,7 @@
     string starts = string.Join(" ", Model.ProblemFromFile.Iterations.Select(s => s.Start).ToArray());
     string stops = string.Join(" ", Model.ProblemFromFile.Iterations.Select(s => s.Stop).ToArray());
     string color = "blue";
-    if (ViewBag.Message.Length > 0)
+    if (ViewBag.Message != null && ViewBag.Message.Length > 0)
     {
         color = "red";
     }
