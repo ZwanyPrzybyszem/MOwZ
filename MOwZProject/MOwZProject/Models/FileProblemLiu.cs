@@ -57,7 +57,7 @@ namespace MOwZProject.Models
                 }
                 if (noOfTasks > 50)
                 {
-                    throw new Exception("Zbyt duża liczba zadan");
+                    throw new Exception("Zbyt duża liczba zadań");
                 }
                 try
                 {
@@ -85,7 +85,7 @@ namespace MOwZProject.Models
 
                 for (int i = 0; i < durations.Length; i++)
                 {
-                    this.ProblemFromFile.Tasks.Add(new Task { Id = i, Duration = durations[i], Period = periods[i], TaskRemain = durations[i], CompletedTask = 0 });
+                    this.ProblemFromFile.Tasks.Add(new Task { Id = (i+1), Duration = durations[i], Period = periods[i], TaskRemain = durations[i], CompletedTask = 0 });
                 }
             }
             else

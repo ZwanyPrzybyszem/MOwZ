@@ -167,9 +167,22 @@ namespace MOwZProject.Controllers
         /// <returns>Wynik metody akcji.</returns>
         public ActionResult GanttChart(string tasks, string starts, string stops, string color)
         {
+            int[] startsTab = Array.ConvertAll(starts.Split(' '), Int32.Parse);
+            int[] stopsTab = Array.ConvertAll(stops.Split(' '), Int32.Parse);
+            int min = 0;
+
+            for (int i = 0; i< startsTab.Length; i++) 
+            {
+                if (min == 0 || min > (stopsTab[i] - startsTab[i]))
+                {
+                    min = (stopsTab[i] - startsTab[i]);
+                }
+            }
+
             Chart chart = new Chart();
             chart.ChartAreas.Add(new ChartArea());
-
+            chart.Width = ((stopsTab.Max() / min) * 40) > 1200 ? 1200 : ((stopsTab.Max() / min) * 40) ;
+            chart.Height = Array.ConvertAll(tasks.Split(' '), Int32.Parse).Length * 40;
             chart.Series.Add(new Series("Data"));
             chart.Series["Data"].ChartType = SeriesChartType.RangeBar;
             if (color == "red")
@@ -183,8 +196,8 @@ namespace MOwZProject.Controllers
             {
                 chart.Series["Data"].Points.DataBindXY(
                 Array.ConvertAll(tasks.Split(' '), Int32.Parse),
-                Array.ConvertAll(starts.Split(' '), Int32.Parse),
-                Array.ConvertAll(stops.Split(' '), Int32.Parse));
+                startsTab,
+                stopsTab);
             }
 
             MemoryStream ms = new MemoryStream();
