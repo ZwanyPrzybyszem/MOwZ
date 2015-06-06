@@ -41,6 +41,7 @@ namespace MOwZProject.Tests.Controllers
             return p;
         }
 
+
         /// <summary>
         /// Metoda przetwarza problem.
         /// </summary>
@@ -61,8 +62,6 @@ namespace MOwZProject.Tests.Controllers
 
             return p;
         }
-
-
 
 
         /// <summary>
@@ -274,6 +273,7 @@ namespace MOwZProject.Tests.Controllers
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ProblemLiu.NotEnoughTimeUnitsException))]
         public void Liu00()
         {
             const int size = 2;
@@ -282,16 +282,11 @@ namespace MOwZProject.Tests.Controllers
             int[] per = new int[size] { 4, 10 };
 
             int[] resultIter = new int[] { };
-            try
-            { 
-                ProblemLiu p = checkLiu(dur, per, size);
-                for (int i = 0; i < p.Iterations.Count(); i++)
-                {
-                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
-                }
-                Assert.Fail();
+            ProblemLiu p = checkLiu(dur, per, size);
+            for (int i = 0; i < p.Iterations.Count(); i++)
+            {
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
             }
-            catch (Exception) { }
         }
 
         [TestMethod]
@@ -331,6 +326,7 @@ namespace MOwZProject.Tests.Controllers
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ProblemLiu.NotEnoughTimeUnitsException))]
         public void Liu03()
         {
             const int size = 1;
@@ -339,16 +335,11 @@ namespace MOwZProject.Tests.Controllers
             int[] per = new int[size] { 8 };
 
             int[] resultIter = new int[] { };
-            try
+            ProblemLiu p = checkLiu(dur, per, size);
+            for (int i = 0; i < p.Iterations.Count(); i++)
             {
-                ProblemLiu p = checkLiu(dur, per, size);
-                for (int i = 0; i < p.Iterations.Count(); i++)
-                {
-                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
-                }
-                Assert.Fail();
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
             }
-            catch (Exception) { }
         }
 
         [TestMethod]
@@ -370,6 +361,7 @@ namespace MOwZProject.Tests.Controllers
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ProblemLiu.WrongDataException))]
         public void Liu05()
         {
             const int size = 2;
@@ -378,16 +370,11 @@ namespace MOwZProject.Tests.Controllers
             int[] per = new int[size] { 5, 0 };
 
             int[] resultIter = new int[] { };
-            try
+            ProblemLiu p = checkLiu(dur, per, size);
+            for (int i = 0; i < p.Iterations.Count(); i++)
             {
-                ProblemLiu p = checkLiu(dur, per, size);
-                for (int i = 0; i < p.Iterations.Count(); i++)
-                {
-                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
-                }
-                Assert.Fail();
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
             }
-            catch (Exception) { }
         }
 
         [TestMethod]
@@ -409,6 +396,7 @@ namespace MOwZProject.Tests.Controllers
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ProblemLiu.WrongDataException))]
         public void Liu07()
         {
             const int size = 1;
@@ -417,19 +405,15 @@ namespace MOwZProject.Tests.Controllers
             int[] per = new int[size] { -5 };
 
             int[] resultIter = new int[] { };
-            try
+            ProblemLiu p = checkLiu(dur, per, size);
+            for (int i = 0; i < p.Iterations.Count(); i++)
             {
-                ProblemLiu p = checkLiu(dur, per, size);
-                for (int i = 0; i < p.Iterations.Count(); i++)
-                {
-                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
-                }
-                Assert.Fail();
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
             }
-            catch (Exception) { }
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ProblemLiu.NotEnoughTimeUnitsException))]
         public void Liu08()
         {
             const int size = 2;
@@ -438,16 +422,11 @@ namespace MOwZProject.Tests.Controllers
             int[] per = new int[size] { int.Parse("555"), 111 };
 
             int[] resultIter = new int[] { };
-            try
+            ProblemLiu p = checkLiu(dur, per, size);
+            for (int i = 0; i < p.Iterations.Count(); i++)
             {
-                ProblemLiu p = checkLiu(dur, per, size);
-                for (int i = 0; i < p.Iterations.Count(); i++)
-                {
-                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
-                }
-                Assert.Fail();
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
             }
-            catch (Exception) { }
         }
 
         [TestMethod]
@@ -469,6 +448,7 @@ namespace MOwZProject.Tests.Controllers
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ProblemLiu.NotEnoughTimeUnitsException))]
         public void Liu10()
         {
             const int size = 2;
@@ -477,16 +457,11 @@ namespace MOwZProject.Tests.Controllers
             int[] per = new int[size] { 3, 3 };
 
             int[] resultIter = new int[] { 0, 1 };
-            try
+            ProblemLiu p = checkLiu(dur, per, size);
+            for (int i = 0; i < p.Iterations.Count(); i++)
             {
-                ProblemLiu p = checkLiu(dur, per, size);
-                for (int i = 0; i < p.Iterations.Count(); i++)
-                {
-                    Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
-                }
-                Assert.Fail();
+                Assert.AreEqual(p.Iterations.ElementAt(i).Task.Id, resultIter[i]);
             }
-            catch (Exception) { }
         }
 
     }

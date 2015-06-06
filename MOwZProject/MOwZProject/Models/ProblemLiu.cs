@@ -96,7 +96,6 @@ namespace MOwZProject.Models
             return nww;
         }
 
-
         /// <summary>
         /// Rozwiązuje problem algorytmem statycznym Liu Laylanda.
         /// </summary>
@@ -106,6 +105,14 @@ namespace MOwZProject.Models
             if (this.details)
             {
                 this.Steps = new List<string>();
+            }
+
+            foreach (Task t in this.Tasks)
+            {
+                if (t.Duration < 1 || t.Period < 1) 
+                {
+                    throw new ProblemLiu.WrongDataException(String.Format("Niepoprawne dane opisujące zadania! Uzupełnij liczbami > 0!"));
+                }
             }
 
             //var sortedTasks = from task in this.Tasks orderby task.Duration,task.Period select task;
@@ -127,7 +134,7 @@ namespace MOwZProject.Models
                             this.Steps.Add("Nie wystarczająca liczba jednostek czasu dla zadania " + t.Id.ToString());
                         }
                         this.Done = false;
-                        throw new Exception(String.Format("Nie wystarczająca liczba jednostek czasu dla zadania {0}", t.Id));
+                        throw new ProblemLiu.NotEnoughTimeUnitsException(String.Format("Nie wystarczająca liczba jednostek czasu dla zadania {0}", t.Id));
                     }
                     if (t.TaskRemain == 0 && t.CompletedTask * t.Period == i)
                     {
@@ -169,5 +176,26 @@ namespace MOwZProject.Models
 
         }
 
+        /// <summary>
+        /// Wyrzucany gdy są podane błędne dane wejściowe.
+        /// </summary>
+        public class WrongDataException : Exception
+        {
+            public WrongDataException() : base() { }
+            public WrongDataException(string s) : base(s) { }
+            public WrongDataException(string s, Exception i) : base(s, i) { }
+        }
+
+        /// <summary>
+        /// Wyrzucany gdy brakuje jednostek czasu do wykonania zadania.
+        /// </summary>
+        public class NotEnoughTimeUnitsException : Exception
+        {
+            public NotEnoughTimeUnitsException() : base() { }
+            public NotEnoughTimeUnitsException(string s) : base(s) { }
+            public NotEnoughTimeUnitsException(string s, Exception i) : base(s, i) { }
+        }
+
     }
+
 }

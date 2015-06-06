@@ -142,10 +142,6 @@ namespace MOwZProject.Controllers
                     {
                         s.Id = i + 1;
 
-                        if (s.Duration <1 || s.Period< 1)
-                        {
-                            throw new Exception(String.Format("Niepoprawne dane opisujące zadania! Uzupełnij liczbami > 0!"));
-                        }
                         i++;
 
                     }
