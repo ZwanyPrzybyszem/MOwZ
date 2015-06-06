@@ -48,7 +48,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -135,6 +134,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a24d1187d876d5caba76d7234221652ae"><td class="memItemLeft" align="right" valign="top">ActionResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_ow_z_project_1_1_controllers_1_1_problem_controller.html#a24d1187d876d5caba76d7234221652ae">EfficiencyChart</a> (string names, string places)</td></tr>
 <tr class="memdesc:a24d1187d876d5caba76d7234221652ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metoda tworzy wykres kołowy.  <a href="#a24d1187d876d5caba76d7234221652ae">More...</a><br /></td></tr>
 <tr class="separator:a24d1187d876d5caba76d7234221652ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9544e11a7572889b4841241443c4268"><td class="memItemLeft" align="right" valign="top">ActionResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_ow_z_project_1_1_controllers_1_1_problem_controller.html#ab9544e11a7572889b4841241443c4268">ProblemLiu</a> ()</td></tr>
+<tr class="memdesc:ab9544e11a7572889b4841241443c4268"><td class="mdescLeft">&#160;</td><td class="mdescRight">GET dla formularza.  <a href="#ab9544e11a7572889b4841241443c4268">More...</a><br /></td></tr>
+<tr class="separator:ab9544e11a7572889b4841241443c4268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a263d51a19407e8bd25f070b5f8b10264"><td class="memItemLeft" align="right" valign="top">ActionResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_ow_z_project_1_1_controllers_1_1_problem_controller.html#a263d51a19407e8bd25f070b5f8b10264">ProblemLiu</a> (<a class="el" href="class_m_ow_z_project_1_1_models_1_1_problem_liu.html">ProblemLiu</a> <a class="el" href="class_m_ow_z_project_1_1_models_1_1_problem.html">Problem</a>, string add, string process)</td></tr>
+<tr class="memdesc:a263d51a19407e8bd25f070b5f8b10264"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metoda dodaje nowe zadanie bądź przetwarza problem z formularza.  <a href="#a263d51a19407e8bd25f070b5f8b10264">More...</a><br /></td></tr>
+<tr class="separator:a263d51a19407e8bd25f070b5f8b10264"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fd57da504fe946e9c6a38b70b508781"><td class="memItemLeft" align="right" valign="top">ActionResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_ow_z_project_1_1_controllers_1_1_problem_controller.html#a5fd57da504fe946e9c6a38b70b508781">GanttChart</a> (string tasks, string starts, string stops, string color)</td></tr>
+<tr class="memdesc:a5fd57da504fe946e9c6a38b70b508781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metoda tworzy wykres Gantta.  <a href="#a5fd57da504fe946e9c6a38b70b508781">More...</a><br /></td></tr>
+<tr class="separator:a5fd57da504fe946e9c6a38b70b508781"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Kontroler dla problemów z formularza. </p>
@@ -171,6 +179,47 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Wynik metody akcji.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5fd57da504fe946e9c6a38b70b508781"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ActionResult MOwZProject.Controllers.ProblemController.GanttChart </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>tasks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>starts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>stops</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Metoda tworzy wykres Gantta. </p>
 <dl class="section return"><dt>Returns</dt><dd>Wynik metody akcji.</dd></dl>
 
 </div>
@@ -236,8 +285,69 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab9544e11a7572889b4841241443c4268"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ActionResult MOwZProject.Controllers.ProblemController.ProblemLiu </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GET dla formularza. </p>
+<dl class="section return"><dt>Returns</dt><dd>Wynik metody akcji.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a263d51a19407e8bd25f070b5f8b10264"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ActionResult MOwZProject.Controllers.ProblemController.ProblemLiu </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_m_ow_z_project_1_1_models_1_1_problem_liu.html">ProblemLiu</a>&#160;</td>
+          <td class="paramname"><em>Problem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>add</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>process</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Metoda dodaje nowe zadanie bądź przetwarza problem z formularza. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Problem</td><td>Obiekt reprezentujący problem do przetworzenia.</td></tr>
+    <tr><td class="paramname">add</td><td>Zawiera dane, gdy wybrano opcję dodania nowego zadania.</td></tr>
+    <tr><td class="paramname">process</td><td>Zawiera dane, gdy wybrano opcję rozwiązania problemu.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Wynik metody akcji.</dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Julia/Documents/MOwZ/MOwZProject/MOwZProject/Controllers/<a class="el" href="_problem_controller_8cs.html">ProblemController.cs</a></li>
+<li>C:/Users/Julia/Documents/MOwZ/MOwZProject/MOwZProject/Controllers/ProblemController.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -245,7 +355,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_m_ow_z_project.html">MOwZProject</a></li><li class="navelem"><a class="el" href="namespace_m_ow_z_project_1_1_controllers.html">Controllers</a></li><li class="navelem"><a class="el" href="class_m_ow_z_project_1_1_controllers_1_1_problem_controller.html">ProblemController</a></li>
-    <li class="footer">Generated on Sun Apr 26 2015 03:55:25 for MOwZ - Still with Hill &amp; Liu&#39;Layland App by
+    <li class="footer">Generated on Sat Jun 6 2015 22:09:00 for MOwZ - Still with Hill &amp; Liu&#39;Layland App by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>
