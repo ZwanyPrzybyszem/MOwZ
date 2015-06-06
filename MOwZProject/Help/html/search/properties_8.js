@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['size',['Size',['../class_m_ow_z_project_1_1_models_1_1_state.html#ab6f0cf1c3c6561e8f237aa1d6ee272ec',1,'MOwZProject::Models::State']]],
-  ['spelniatestdolnejkwoty',['SpelniaTestDolnejKwoty',['../class_m_ow_z_project_1_1_models_1_1_step.html#a9e3ebc1541c72e35d053fead8a282174',1,'MOwZProject::Models::Step']]],
-  ['spelniatestgornejkwoty',['SpelniaTestGornejKwoty',['../class_m_ow_z_project_1_1_models_1_1_step.html#aaf215271430665d533cdd7bca9c7b921',1,'MOwZProject::Models::Step']]],
-  ['states',['States',['../class_m_ow_z_project_1_1_models_1_1_problem.html#a8e952674bb86a1ecede7b4f52932c89a',1,'MOwZProject::Models::Problem']]],
-  ['steps',['Steps',['../class_m_ow_z_project_1_1_models_1_1_problem.html#aa1a2922a8b960142fa47e0d2b6c2ec99',1,'MOwZProject::Models::Problem']]]
+  ['parlamentsize',['ParlamentSize',['../class_m_ow_z_project_1_1_models_1_1_problem.html#ae0efd2ec4c20207fa0c4f5c720a5ef03',1,'MOwZProject::Models::Problem']]],
+  ['period',['Period',['../class_m_ow_z_project_1_1_models_1_1_task.html#adc15555c791b83ea23db2e8baef3fe1d',1,'MOwZProject::Models::Task']]],
+  ['problemfromfile',['ProblemFromFile',['../class_m_ow_z_project_1_1_models_1_1_file_problem.html#ae8401c3da5bb5754ec1c71eb5ef492c6',1,'MOwZProject.Models.FileProblem.ProblemFromFile()'],['../class_m_ow_z_project_1_1_models_1_1_file_problem_liu.html#a7f2b78c2f4f23815920f5bc6c780170b',1,'MOwZProject.Models.FileProblemLiu.ProblemFromFile()']]]
 ];

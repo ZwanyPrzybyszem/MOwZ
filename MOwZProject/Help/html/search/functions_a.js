@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ln',['ln',['../jquery-1_810_82_8min_8js.html#a42661329b17b306f3a9acb09791baff6',1,'jquery-1.10.2.min.js']]]
+  ['updateproblem',['updateProblem',['../class_m_ow_z_project_1_1_models_1_1_file_problem.html#a56ddc427041d41c73730197147ced5a0',1,'MOwZProject.Models.FileProblem.updateProblem()'],['../class_m_ow_z_project_1_1_models_1_1_file_problem_liu.html#a9c8603e3dab08108f3ab3a3008ae0aee',1,'MOwZProject.Models.FileProblemLiu.updateProblem()']]]
 ];

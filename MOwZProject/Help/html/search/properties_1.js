@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['element',['Element',['../class_m_ow_z_project_1_1_models_1_1_step.html#a20110b0ec9ea07ec8f928c2b65265ab9',1,'MOwZProject::Models::Step']]],
-  ['ext',['ext',['../class_m_ow_z_project_1_1_models_1_1_check_extensions.html#accef86aa80eddb8a4353595cb1395db3',1,'MOwZProject::Models::CheckExtensions']]]
+  ['details',['details',['../class_m_ow_z_project_1_1_models_1_1_problem.html#ab40febe7a3f1f497bbe8cb76ab6a74cf',1,'MOwZProject.Models.Problem.details()'],['../class_m_ow_z_project_1_1_models_1_1_problem_liu.html#ac654d3f431344fb5b6f061ead9a8956b',1,'MOwZProject.Models.ProblemLiu.details()']]],
+  ['dolnakwota',['DolnaKwota',['../class_m_ow_z_project_1_1_models_1_1_step.html#a706b7812a3e3ee3bd9bbc9e3500ad25c',1,'MOwZProject::Models::Step']]],
+  ['done',['Done',['../class_m_ow_z_project_1_1_models_1_1_problem_liu.html#ad5514eb36366c748bcc7649a0e56cd38',1,'MOwZProject::Models::ProblemLiu']]],
+  ['duration',['Duration',['../class_m_ow_z_project_1_1_models_1_1_task.html#a8ee0d64f48892099374849473173ea3c',1,'MOwZProject::Models::Task']]]
 ];
