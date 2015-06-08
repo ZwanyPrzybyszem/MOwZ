@@ -90,7 +90,7 @@ namespace MOwZProject.Models
             for (int i = 1; i < numberOfTasks; i++)
             {
                 int taskPeriod = this.Tasks[i].Period;
-                nww = (nww * taskPeriod) / getNWD(nww, taskPeriod);
+                nww = nww * (taskPeriod / getNWD(nww, taskPeriod));
             }
 
             return nww;
