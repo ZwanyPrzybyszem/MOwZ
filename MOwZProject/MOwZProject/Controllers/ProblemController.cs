@@ -178,7 +178,7 @@ namespace MOwZProject.Controllers
             Chart chart = new Chart();
             chart.ChartAreas.Add(new ChartArea());
             chart.Width = ((stopsTab.Max() / min) * 40) > 1200 ? 1200 : ((stopsTab.Max() / min) * 40) ;
-            chart.Height = Array.ConvertAll(tasks.Split(' '), Int32.Parse).Length * 40;
+            chart.Height = Array.ConvertAll(tasks.Split(' '), Int32.Parse).Length * 8;
             chart.Series.Add(new Series("Data"));
             chart.Series["Data"].ChartType = SeriesChartType.RangeBar;
             if (color == "red")
