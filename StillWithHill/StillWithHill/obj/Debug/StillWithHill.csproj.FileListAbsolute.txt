@@ -1,6 +1,0 @@
-C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\bin\Debug\StillWithHill.exe.config
-C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\bin\Debug\StillWithHill.exe
-C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\bin\Debug\StillWithHill.pdb
-C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\obj\Debug\StillWithHill.csprojResolveAssemblyReference.cache
-C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\obj\Debug\StillWithHill.exe
-C:\Git\SIZ\MOwZ\StillWithHill\StillWithHill\obj\Debug\StillWithHill.pdb
